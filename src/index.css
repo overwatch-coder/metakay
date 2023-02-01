@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+a.active {
+    @apply text-slate-500;
+}
+
+li {
+    @apply list-none;
+}
+
+
+.rec.rec-arrow {
+    background-color: white !important;
+    color: #3A3B3C !important;
+}
+
+.rec.rec-arrow:focus, .rec.rec-arrow:hover {
+    background-color: #3A3B3C !important;
+    color: white !important;
+}
+
+.rec-arrow-right{
+    @apply absolute right-5 md:right-16 -translate-y-1/2;
+}
+
+.rec-arrow-left{
+    @apply absolute left-5 md:left-16 z-10 -translate-y-1/2;
+}
+
+.rec.rec-arrow:disabled, .rec.rec-arrow:disabled:hover {
+    cursor: auto !important;
+    background-color: #3A3B3C !important;
+    opacity: 0.3 !important;
+    color: white !important;
+}
