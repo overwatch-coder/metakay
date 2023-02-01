@@ -1,11 +1,22 @@
-import React from 'react'
 
-const ColorSize = ({name, items, selectedItem, setSelectedItem, extraClass}) => {
+const ColorSize = ({
+        name, 
+        items, 
+        selectedItem, 
+        setSelectedItem, 
+        extraClass
+    }) => {
+
+        let selectedName;
+        if(selectedItem > -1){
+            selectedName = name === 'Color' ? items[selectedItem].name : items[selectedItem];
+        }
+
   return (
     <div className="space-y-2">
-        <h4 className="font-medium text-[18px] md:text-xl">
-            <span>{name}</span>
-            {selectedItem > -1 && <span className='mx-1'> - {items[selectedItem]} </span> }
+        <h4 className="font-medium text-[18px] md:text-xl space-x-2">
+            <span> { name } </span>
+            <span>{selectedName}</span>
         </h4>
 
         <p className="flex items-center gap-x-4">
@@ -16,7 +27,7 @@ const ColorSize = ({name, items, selectedItem, setSelectedItem, extraClass}) => 
                     ${extraClass} 
                     ${selectedItem === index ? 'bg-transparent text-white border-green-400 border-2' 
                     : 'text-black hover:bg-transparent hover:text-white hover:border-white hover:border-2'} font-medium uppercase cursor-pointer 
-                    ${name.toLowerCase() === 'color' ? 'bg-[' + item + ']' : ''}
+                    ${name.toLowerCase() === 'color' ? item.color : ''}
                 `}
                 onClick={() => setSelectedItem(index)}
             >
