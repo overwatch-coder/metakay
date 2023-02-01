@@ -27,7 +27,7 @@ const Shop = () => {
 
   return (
     <div>
-      <section className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
+      <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
         {productsToDisplay.map(({photo, name, slug, price, category}, index) => (
           <Product 
             productImage={photo}

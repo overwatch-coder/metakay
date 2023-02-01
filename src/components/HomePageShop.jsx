@@ -7,7 +7,7 @@ const HomePageShop = () => {
 
     // setting various breakpoints for carousel
     const breakPoints = [
-        { width: 1, itemsToShow: 2 },
+        { width: 1, itemsToShow: 1 },
         { width: 700, itemsToShow: 4 },
     ]
 
@@ -20,25 +20,27 @@ const HomePageShop = () => {
         </div>
 
         {/* Product Carousel or Slider */}
-        <Carousel 
-            breakPoints={breakPoints} 
-            pagination={false}
-            itemPadding={[10]}
-            showEmptySlots={false}
-            showArrows={true}
-        >
+        <div>
+            <Carousel 
+                breakPoints={breakPoints} 
+                pagination={false}
+                itemPadding={[10]}
+                showEmptySlots={false}
+                showArrows={true}
+            >
 
-        {/* Mapping through all the available products */}
-            {products.slice(0,8).map((product, index) => (
-                <Product 
-                    productImage = {product.photo}
-                    slug={product.slug} 
-                    productName={product.name}
-                    price={product.price}
-                    key={index}
-                />
-            )) }
-        </Carousel>
+            {/* Mapping through all the available products */}
+                {products.slice(0,8).map((product, index) => (
+                    <Product 
+                        productImage = {product.photo}
+                        slug={product.slug} 
+                        productName={product.name}
+                        price={product.price}
+                        key={index}
+                    />
+                )) }
+            </Carousel>
+        </div>
         
 
         <Link to='/shop' 
