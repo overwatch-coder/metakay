@@ -4,7 +4,7 @@ import SingleCollection from '../components/SingleCollection';
 import { collection } from '../utils';
 
 const Collection = () => {
-    const { id } = useParams();
+    const { colname } = useParams();
 
     const breakPoints = [
       { width: 1, itemsToShow: 1 },
@@ -23,7 +23,7 @@ const Collection = () => {
     !isLastIndex ? setCurrentIndex(prev => prev + 1) : setCurrentIndex(0);
   }
 
-  let singleCollection = collection.filter(col => col.name.toLowerCase() === id);
+  let singleCollection = collection.filter(col => col.name.toLowerCase() === colname);
 
   return (
     <div className='pb-2'>
@@ -35,7 +35,9 @@ const Collection = () => {
         <div className='absolute uppercase font-bold text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
           <h2 className='text-white flex flex-col space-y-4 sm:space-y-6'>
             <span className='text-xl sm:text-2xl md:text-3xl'>Metakay's</span>
-            <span className='text-5xl sm:text-7xl md:text-8xl font-georgia'>{id}</span>
+            <span className='text-5xl sm:text-7xl md:text-8xl font-georgia'>
+              {colname}
+            </span>
           </h2>
         </div>
       </section>

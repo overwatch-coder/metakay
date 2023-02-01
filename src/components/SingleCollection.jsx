@@ -1,4 +1,5 @@
 import Carousel from 'react-elastic-carousel';
+import ProductCarousel from './ProductCarousel';
 
 const SingleCollection = ({photo, description, breakPoints, name, images}) => {
   return (
@@ -11,20 +12,13 @@ const SingleCollection = ({photo, description, breakPoints, name, images}) => {
             </h4>
         </div>
 
-            {/* Product Carousel or Slider */}
-        <Carousel 
+        {/* Product Carousel or Slider */}
+        <ProductCarousel 
             breakPoints={breakPoints} 
-            pagination={false}
-            itemPadding={[20]}
-            showEmptySlots={false}
-            showArrows={true}
-        >
-
-            {/* Mapping through all the available products */}
-            {images.map((image, index) => (
-                <img src={image} alt={name} key={index} className='w-full object-cover h-[150vh] pt-5' />
-            ))}
-        </Carousel>
+            name={name} 
+            images={images} 
+            extraClass={'h-[100vh] md:h-[150vh]'}
+        />
     </div>
   )
 }

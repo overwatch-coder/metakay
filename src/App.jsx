@@ -23,7 +23,7 @@ const App = () => {
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
         <Route index element={<Home />} />
-        <Route path="collection/:id" element={<Collection />} />
+        <Route path="collection/:colname" element={<Collection />} />
         <Route path="shop" element={<ShopLayout />}>
           <Route index element={<Shop />} />
         </Route>
