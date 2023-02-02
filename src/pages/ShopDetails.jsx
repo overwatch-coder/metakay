@@ -43,7 +43,8 @@ const ShopDetails = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 pt-5">
         {/* Product Images */}
         <section className="relative w-screen lg:w-[750px] xl:w-[950px] px-5 lg:px-16 flex flex-col gap-y-3 col-span-1 lg:col-span-2">
-          <div className="px-5 lg:px-16">
+
+          <div className="px-5">
             <Link 
               to='/shop' 
               className="border-b-[1px] hover:border-b-2 hover:border-gray font-medium hover:text-gray"
@@ -52,12 +53,13 @@ const ShopDetails = () => {
             </Link>
           </div>
 
-          <img src={photo} alt={name} className='w-full object-cover px-5 lg:px-16' />
+          <img src={photo} alt={name} className='w-full object-cover px-5' />
+
           <ProductCarousel 
             breakPoints={breakPoints} 
             name={name} 
             images={images}
-            extraClass={'h-[70vh] md:h-[100vh]'} 
+            extraClass={'h-[60vh] md:h-[80vh]'} 
           />
         </section>
 
@@ -68,7 +70,7 @@ const ShopDetails = () => {
       </div>
 
       {/* Product Description */}
-      <div className="flex flex-col gap-y-3 py-10 md:w-[800px] lg:w-[900px] mx-auto">
+      <div className="flex flex-col gap-y-3 lg:flex-row lg:justify-center items-center lg:items-start py-10 px-5">
         <ProductDescription 
           title={'Description'}
           description={`
@@ -106,13 +108,13 @@ const ShopDetails = () => {
 
             {/* Mapping through all the available products */}
               {similarProducts.slice(0,8).map((product, index) => (
-                  <Product 
-                      productImage = {product.photo}
-                      slug={product.slug} 
-                      productName={product.name}
-                      price={product.price}
-                      key={index}
-                  />
+                <Product 
+                  productImage = {product.photo}
+                  slug={product.slug} 
+                  productName={product.name}
+                  price={product.price}
+                  key={index}
+                />
               )) }
           </Carousel>
       </section>

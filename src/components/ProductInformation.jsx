@@ -25,13 +25,13 @@ const ProductInformation = ({singleProducts}) => {
     }
 
   return (
-    <section className="px-5 pt-10 pb-16">
+    <section className="px-10 lg:px-5 pt-10 pb-16">
         <div className="text-white col-span-1 bg-gray py-10 flex flex-col gap-y-5 px-5">
-          <h2 className="font-bold font-georgia text-2xl md:text-3xl">{name}</h2>
+          <h2 className="font-bold font-georgia text-2xl md:text-3xl">{ name }</h2>
 
           <div className="flex flex-col gap-y-6">
             {/* Category */}
-            <div>
+            <div className="flex flex-col gap-y-2">
               <h4 className="font-medium text-[18px] md:text-xl">Category</h4>
 
               <p className="flex items-center gap-x-4">

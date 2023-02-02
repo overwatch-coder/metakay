@@ -11,7 +11,7 @@ const Header = () => {
 
   return (
     <header className="bg-white w-screen fixed drop-shadow-md z-50 border-gray border-b-[1px] md:border-0">
-        <section className='flex justify-between items-center mx-auto px-5 md:px-16'>
+        <section className='flex justify-between items-center mx-auto px-5'>
 
             {/* Logo */}
             <Link to='/'>

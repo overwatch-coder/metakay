@@ -3,7 +3,7 @@ const About = () => {
   return (
     
     <section 
-        className="bg-gray w-screen text-white py-20 px-5 md:px-16 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-x-10"
+        className="bg-gray w-screen text-white py-20 px-7 mx-auto grid grid-cols-1 lg:grid-cols-2 gap-y-10 lg:gap-x-10"
         >
 
         <img 

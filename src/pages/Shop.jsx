@@ -13,7 +13,7 @@ const Shop = () => {
   const productsToDisplay = products.slice(firstPageIndex, lastPageIndex);
 
   let pages = [];
-  for(let i = 1; i <= Math.ceil(total / productPerPage ); i++){
+  for(let i = 1; i <= Math.ceil(total / productPerPage ); i++) {
     pages.push(i);
   }
 

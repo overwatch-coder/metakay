@@ -69,7 +69,7 @@ export const products = [
     {images: [col11, col12, col13], category: ['man', 'top', 'eunoia'], photo: product17, slug: 'product-seventeen', name: 'Product Seventeen', price: 1000},
     {images: [col21, col22, col23], category: ['woman', 'dress', 'unilever'], photo: product18, slug: 'product-eighteen', name: 'Product Eighteen', price: 750},
     {images: [col31, col32, col33], category: ['man', 'top', 'eunoia'], photo: product19, slug: 'product-nineteen', name: 'Product Nineteen', price: 930},
-    {images: [col41, col42, col43], category: ['woman', 'trouser', 'eunoia'], photo: product20, slug: 'product-twenty', name: 'Product Twenty', price: 760},
+    {images: [col41, col42, col43], category: ['woman', 'trousers', 'eunoia'], photo: product20, slug: 'product-twenty', name: 'Product Twenty', price: 760},
     {images: [col11, col12, col13], category: ['woman', 'top', 'unilever'], photo: product16, slug: 'product-sixteen', name: 'Product Sixteen', price: 650},
     {images: [col21, col22, col23], category: ['man', 'top', 'eunoia'], photo: product17, slug: 'product-seventeen', name: 'Product Seventeen', price: 1000},
     {images: [col31, col32, col33], category: ['woman', 'dress', 'unilever'], photo: product18, slug: 'product-eighteen', name: 'Product Eighteen', price: 750},
@@ -77,8 +77,8 @@ export const products = [
 ];
 
 export const homeCollection = [
-    {image: categoryImageTwo, name: 'eunoia'},
-    {image: categoryImageOne, name: 'unilever'}
+    {image: categoryImageTwo, name: 'Eunoia'},
+    {image: categoryImageOne, name: 'Unilever'}
 ];
 
 export const collection = [
@@ -112,3 +112,5 @@ export const collection = [
         name: 'Eunoia'
     }
 ];
+
+export const shopCategory = ['all', 'man', 'woman', 'skirt', 'top', 'dress'];

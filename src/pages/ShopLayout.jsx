@@ -16,7 +16,7 @@ const ShopLayout = () => {
             <ShopFilter />
 
             {/* Outlet for dynamic shopping products */}
-            <div className="px-5 md:pr-10 md:px-0">
+            <div className="px-5">
                 <Outlet />
             </div>
         </div>

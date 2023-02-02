@@ -12,7 +12,7 @@ const HomePageShop = () => {
     ]
 
   return (
-    <section className='py-20 px-5 md:px-16 flex flex-col space-y-5 mx-auto'>
+    <section className='py-20 flex flex-col space-y-5 mx-auto'>
         <div className='text-center uppercase flex justify-center items-center space-x-3'>
             <div className='border-gray border-2 w-16 sm:w-20'></div>
             <h3 className='font-medium text-[18px] sm:text-2xl lg:text-3xl'>Best Seller</h3>
@@ -20,7 +20,7 @@ const HomePageShop = () => {
         </div>
 
         {/* Product Carousel or Slider */}
-        <div>
+        <div className='pb-6'>
             <Carousel 
                 breakPoints={breakPoints} 
                 pagination={false}
@@ -44,7 +44,7 @@ const HomePageShop = () => {
         
 
         <Link to='/shop' 
-            className='mx-auto text-center p-3 rounded-full bg-gray hover:scale-105 hover:opacity-80 text-white uppercase font-medium text-xs lg:text-base'
+            className='mx-auto text-center py-4 px-5 md:p-5 rounded-full bg-gray hover:scale-105 hover:opacity-80 text-white uppercase font-medium text-xs lg:text-base'
         >
             View all products
         </Link>
