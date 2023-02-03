@@ -1,6 +1,8 @@
 import { FaBookReader } from 'react-icons/fa';
+import DOMPurify from 'isomorphic-dompurify';
 
 const ProductDescription = ({title, description}) => {
+  const sanitizedDescription = DOMPurify.sanitize(description);
 
   return (
     <section className="bg-gray mx-5 lg:mx-16 px-5 md:px-6 mb-10">
@@ -11,10 +13,7 @@ const ProductDescription = ({title, description}) => {
           <FaBookReader />
         </h3>
 
-        <div 
-            className={`text-white leading-9 lg:leading-10 tracking-wider text-sm lg:text-base flex flex-col gap-y-4 pt-4 pb-10`}>
-          {description}
-        </div>
+        <div className='text-white leading-9 lg:leading-10 tracking-wider text-sm lg:text-base flex flex-col gap-y-4 pt-4 pb-10' dangerouslySetInnerHTML={{ __html: sanitizedDescription }} />
     </section>
   )
 }

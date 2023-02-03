@@ -7,7 +7,7 @@
 }
 
 a.active {
-    @apply text-slate-500;
+    @apply text-gray font-bold;
 }
 
 li {

@@ -1,7 +1,7 @@
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import Product from './Product';
 
-const Carousel = ({
+const CustomCarousel = ({
     products, 
     selectedProducts,
     firstPageIndex, 
@@ -53,11 +53,17 @@ const Carousel = ({
             )) }
         </div>
 
-        <button disabled={lastPageIndex === products.length } className={`absolute top-1/2 -translate-y-1/2 right-1 cursor-pointer bg-white rounded-full p-1 md:p-2 text-black ${lastPageIndex === products.length  ? 'opacity-30' : 'hover:opacity-80'}`} onClick={nextPage}>
+        <button 
+            disabled={lastPageIndex === products.length } 
+            className={
+                `absolute top-1/2 -translate-y-1/2 right-1 cursor-pointer bg-white rounded-full p-1 md:p-2 text-black
+                ${lastPageIndex === products.length  ? 'opacity-30' : 'hover:opacity-80'}`} 
+            onClick={nextPage}
+        >
             <FaChevronRight className='text-xl sm:text-2xl md:text-3xl' />
         </button>
     </div>
   )
 }
 
-export default Carousel
+export default CustomCarousel

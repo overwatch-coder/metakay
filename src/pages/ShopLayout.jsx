@@ -8,7 +8,7 @@ const ShopLayout = () => {
         {/* Header Section */}
         <div 
             className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-xl tracking-wider md:text-3xl'>
-            Shop - Metakay
+            <h2>Shop - Metakay</h2>
         </div>
 
         <div className="flex flex-col gap-y-5 md:flex-row md:gap-y-0 mb-10">

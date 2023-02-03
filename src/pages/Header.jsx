@@ -2,19 +2,20 @@ import { Link, NavLink } from 'react-router-dom';
 import Logo from '../assets/logo-white.jpg';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { GrMenu, GrClose } from 'react-icons/gr';
-import { useState } from 'react';
+import {  useContext } from 'react';
 import Navbar from '../components/Navbar';
 import Social from '../components/Social';
+import { productContext } from '../context/ProductContext';
 
 const Header = () => {
-    const [navbarActive, setNavbarActive] = useState(false);
+    const { navbarActive, setNavbarActive } = useContext(productContext);
 
   return (
     <header className="bg-white w-screen fixed drop-shadow-md z-50 border-gray border-b-[1px] md:border-0">
         <section className='flex justify-between items-center mx-auto px-5'>
 
             {/* Logo */}
-            <Link to='/'>
+            <Link to='/' onClick={() => setNavbarActive(false)}>
                 <img src={Logo} alt="metakay logo" className='w-16 h-16'  />
             </Link>
 
@@ -44,14 +45,25 @@ const Header = () => {
                 </NavLink>
 
                 {!navbarActive ? 
-                    <GrMenu className='text-2xl cursor-pointer' onClick={() => setNavbarActive(!navbarActive)} /> : 
-                    <GrClose className='text-2xl cursor-pointer' onClick={() => setNavbarActive(!navbarActive)} /> 
+                    <GrMenu 
+                        className='text-2xl cursor-pointer' 
+                        onClick={() => setNavbarActive(!navbarActive)} 
+                    /> : 
+                    <GrClose 
+                        className='text-2xl cursor-pointer' 
+                        onClick={() => setNavbarActive(!navbarActive)} 
+                    /> 
                 }
             </div>
         </section>
 
         {/* Nav links mobile*/}
-        <nav className={`md:hidden flex flex-col gap-y-5 space-y-2 py-6 absolute top-[65px] ${navbarActive ? 'translate-x-0 transition duration-1000' : 'translate-x-[99.99%] transition duration-1000'} bg-white w-screen px-10 drop-shadow-md z-20`}>
+        <nav 
+            className={
+                `md:hidden flex flex-col gap-y-5 space-y-2 py-6 absolute top-[65px] 
+                ${navbarActive ? 'translate-x-0 transition duration-1000' : 
+                'translate-x-[99.99%] transition duration-1000'} bg-white w-screen px-10 drop-shadow-md z-20`
+            }>
             
             {/* Nav link component*/}
             <Navbar />

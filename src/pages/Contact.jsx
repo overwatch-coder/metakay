@@ -1,11 +1,148 @@
-import React from 'react'
+import Social from '../components/Social';
+import contactUsImage from '../assets/contact-us.jpg';
+import { useActionData, Form } from 'react-router-dom';
 
 const Contact = () => {
+  const data = useActionData();
+  console.log(data);
+
   return (
-    <div>
-     Contact 
-    </div>
+    <section>
+      {/* Header Section */}
+      <div 
+        className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-xl tracking-wider md:text-3xl'>
+        <h2>Contact - Metakay</h2>
+      </div>
+
+      {/* General Information */}
+      <div className='px-7 pt-5 flex flex-col gap-y-7 md:flex-row md:justify-evenly'>
+          <div className='flex flex-col gap-y-2'>
+            <h2 className='capitalize font-georgia font-bold tracking-wider text-xl md:text-2xl'>
+              Come Find Us
+            </h2>
+
+            <p className='text-gray hidden md:block'>
+              If you are living nearby, come visit MetaKay <br /> at our comfortable office. 
+            </p>
+
+            <p className='text-gray md:hidden'>
+              If you are living nearby, come visit MetaKay at our comfortable office. 
+            </p>
+          </div>
+
+          {/* Address */}
+          <div className='flex flex-col gap-y-2'>
+            <h2 className='capitalize font-georgia font-bold tracking-wider text-xl md:text-2xl'>Headquarters</h2>
+            <p className='text-gray'>
+              <span className='font-semibold'>Location:</span> 123 East Legon, Accra Ghana
+            </p>
+            <p className='text-gray'><span className='font-semibold'>Telephone:</span> (+233) 024-156-2037</p>
+            <p className='text-gray'><span className='font-semibold'>Email:</span> metakay@fashion.com</p>
+          </div>
+
+          {/* Social Media */}
+          <div className='flex flex-col gap-y-2'>
+            <h2 className='capitalize font-georgia font-bold tracking-wider text-xl md:text-2xl'>
+              Our Socials
+            </h2>
+
+            <Social />
+          </div>
+      </div>
+
+      <div className='hidden md:block border-b-2 w-4/5 mx-auto mt-10 mb-16'></div>
+
+      {/* Contact section */}
+      <div className='px-7 mb-16 grid grid-cols-1 gap-y-3 md:grid-cols-2 py-5 text-black'>
+
+        {/* General Information */}
+        <div className=''>
+          <img 
+            src={contactUsImage} 
+            alt="contact us image"
+            className='w-full object-cover'
+          />
+        </div>
+
+        <div className="col-span-1">
+          {/* Contact Form */}
+          <Form className='flex flex-col gap-y-7' method='post' action='/contact'>
+            <div className='space-y-2'>
+              <h2 className='capitalize font-georgia font-bold tracking-wider text-xl md:text-2xl md:text-center'>
+                Get In Touch
+              </h2>
+              <p>If you have any questions, just fill the contact form and we will answer you shortly.</p>
+            </div>
+
+            <div className='text-gray flex flex-col gap-y-3'>
+              <label>Name</label>
+              <input 
+                type="text" 
+                name='name' 
+                className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
+                placeholder='your name'
+                required
+              />
+            </div>
+
+            <div className='text-gray flex flex-col gap-y-3'>
+              <label>Email</label>
+              <input 
+                type="email" 
+                name='email' 
+                className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
+                placeholder='your email'
+                required
+              />
+            </div>
+
+            <div className='text-gray flex flex-col gap-y-3'>
+              <label>Message</label>
+              <textarea 
+                name="message" 
+                cols="30" 
+                rows="10" 
+                placeholder='leave a message'
+                className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md'
+                required
+              >
+              </textarea>
+            </div>
+
+            <button className='uppercase font-medium py-4 px-5 mx-auto text-center w-full bg-gray text-white hover:opacity-80 hover:bg-white hover:text-black hover:border-2 hover:border-gray rounded transition duration-500'>
+              Submit
+            </button>
+          </Form>
+        </div>
+      </div>
+
+      {/* Map */}
+      <div className='py-20 px-7'>
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15882.113977367731!2d-0.1670703325771899!3d5.63638118462521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b501278f4a5%3A0xca081548a0c20ffd!2sEast%20Legon%2C%20Accra%2C%20Ghana!5e0!3m2!1sen!2sma!4v1675384620455!5m2!1sen!2sma" 
+          width="600" 
+          height="450" 
+          loading="lazy" 
+          referrerPolicy="no-referrer-when-downgrade"
+          className='border-0 w-full'
+        >
+        </iframe>
+      </div>
+    </section>
   )
 }
+
+export const action = async ({request}) => {
+  const formData = await request.formData();
+
+  const data = {
+    name: formData.name,
+    email: formData.email,
+    message: formData.message
+  }
+
+  return {data, formData};
+}
+
 
 export default Contact

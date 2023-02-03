@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Product = ({productImage, slug, productName, price, category}) => {
   return (
-    <div className='flex flex-col col-span-1'>
+    <div className={`flex flex-col col-span-1`}>
         <Link to={`/shop/${slug}`}>
           <img src={productImage} alt={productName} className='w-full object-cover h-[50vh]' />
         </Link>
@@ -25,7 +25,7 @@ const Product = ({productImage, slug, productName, price, category}) => {
         <div className='py-2 flex justify-between items-center font-medium'>
             <p className='lg:text-base'>{productName}</p>
 
-            <p className='lg:text-base'>${price}.00</p>
+            <p className='lg:text-base'>${price}</p>
         </div>
     </div> 
   )

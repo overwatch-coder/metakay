@@ -4,10 +4,10 @@ import ProductCarousel from '../components/ProductCarousel';
 import ProductInformation from "../components/ProductInformation";
 import ProductDescription from "../components/ProductDescription";
 import Product from "../components/Product";
-import Carousel from "react-elastic-carousel";
-
+import Carousel from "react-elastic-carousel"
 
 const ShopDetails = () => {
+
     const { slug } = useParams();
     const singleProducts = products.filter(product => product.slug === slug)[0];
     singleProducts.excerpt = "Classic, tailored blazer with a modern twist";
@@ -74,15 +74,22 @@ const ShopDetails = () => {
         <ProductDescription 
           title={'Description'}
           description={`
-            Classic, tailored blazer with a modern twist: The renowned MetaKay brand has brought back a classic style, now enhanced and improved. The Pineapple Top and Skirt features the Eunoia patch, an embroidered felt design that adds a tactile, textured touch. This unique piece is sure to make a statement in any fashion-forward wardrobe.
-
-            PRODUCT FEATURES
-            Structured, professional fit
-            Unique, oversized lapels
-            Made of high-quality wool fabric
-            Elevates any work or casual attire`
+            <article className="flex flex-col gap-y-4">
+              <p>Classic, tailored blazer with a modern twist: The renowned MetaKay brand has brought back a classic style, now enhanced and improved. The Pineapple Top and Skirt features the Eunoia patch, an embroidered felt design that adds a tactile, textured touch. This unique piece is sure to make a statement in any fashion-forward wardrobe.</p>
+              <div>--------------------</div>
+              <div className="flex flex-col gap-y-2 mt-5">
+                <h3 className="text-uppercase font-bold">PRODUCT FEATURES</h3>
+                <ul>
+                  <li>Structured, professional fit</li>
+                  <li>Unique, oversized lapels</li>
+                  <li>Made of high-quality wool fabric</li>
+                  <li>Elevates any work or casual attire</li>
+                </ul>
+              </div>
+            </article>`
           }
         />
+
 
         <ProductDescription 
           title={'Delivery Info'}

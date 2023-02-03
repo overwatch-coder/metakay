@@ -23,7 +23,7 @@ const Collection = () => {
     !isLastIndex ? setCurrentIndex(prev => prev + 1) : setCurrentIndex(0);
   }
 
-  let singleCollection = collection.filter(col => col.name.toLowerCase() === colname);
+  let singleCollection = collection.filter(col => col.name.toLowerCase() === colname.toLowerCase());
 
   return (
     <div className='pb-2'>

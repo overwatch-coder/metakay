@@ -50,35 +50,233 @@ import heroTwo from '../assets/hero/hero2.jpg'
 
 // objects to export
 export const products = [
-    {images: [col21, col22, col23], category: ['woman', 'dress', 'eunoia'], photo: product1, slug: 'product-one', name: 'Product One', price: 199},
-    {images: [col11, col12, col13], category: ['woman', 'dress', 'unilever'], photo: product2, slug: 'product-two', name: 'Product Two', price: 220},
-    {images: [col31, col32, col33], category: ['man', 'top', 'eunoia'], photo: product3, slug: 'product-three', name: 'Product Three', price: 450},
-    {images: [col41, col42, col43], category: ['man', 'top', 'eunoia'], photo: product4, slug: 'product-four', name: 'Product Four', price: 100},
-    {images: [col11, col12, col13], category: ['man', 'top', 'unilever'], photo: product5, slug: 'product-five', name: 'Product Five', price: 250},
-    {images: [col21, col22, col23], category: ['woman', 'top', 'eunoia'], photo: product6, slug: 'product-six', name: 'Product Six', price: 730},
-    {images: [col31, col32, col33], category: ['woman', 'skirt', 'eunoia'], photo: product7, slug: 'product-seven', name: 'Product Seven', price: 70},
-    {images: [col41, col42, col43], category: ['woman', 'skirt', 'unilever'], photo: product8, slug: 'product-eight', name: 'Product Eight', price: 30},
-    {images: [col11, col12, col13], category: ['woman', 'skirt', 'eunoia'], photo: product9, slug: 'product-nine', name: 'Product Nine', price: 40},
-    {images: [col21, col22, col23], category: ['woman', 'top', 'unilever'], photo: product10, slug: 'product-ten', name: 'Product Ten', price: 130},
-    {images: [col31, col32, col33], category: ['woman', 'skirt', 'eunoia'], photo: product11, slug: 'product-eleven', name: 'Product Eleven', price: 230},
-    {images: [col41, col42, col43], category: ['woman', 'top', 'eunoia'], photo: product12, slug: 'product-twelve', name: 'Product Twelve', price: 530},
-    {images: [col11, col12, col13], category: ['woman', 'top', 'unilever'], photo: product13, slug: 'product-thirteen', name: 'Product Thirteen', price: 330},
-    {images: [col21, col22, col23], category: ['woman', 'skirt', 'eunoia'], photo: product14, slug: 'product-fourteen', name: 'Product Fourteen', price: 189},
-    {images: [col31, col32, col33], category: ['woman', 'dress', 'eunoia'], photo: product15, slug: 'product-fifteen', name: 'Product Fifteen', price: 420},
-    {images: [col41, col42, col43], category: ['woman', 'top', 'unilever'], photo: product16, slug: 'product-sixteen', name: 'Product Sixteen', price: 650},
-    {images: [col11, col12, col13], category: ['man', 'top', 'eunoia'], photo: product17, slug: 'product-seventeen', name: 'Product Seventeen', price: 1000},
-    {images: [col21, col22, col23], category: ['woman', 'dress', 'unilever'], photo: product18, slug: 'product-eighteen', name: 'Product Eighteen', price: 750},
-    {images: [col31, col32, col33], category: ['man', 'top', 'eunoia'], photo: product19, slug: 'product-nineteen', name: 'Product Nineteen', price: 930},
-    {images: [col41, col42, col43], category: ['woman', 'trousers', 'eunoia'], photo: product20, slug: 'product-twenty', name: 'Product Twenty', price: 760},
-    {images: [col11, col12, col13], category: ['woman', 'top', 'unilever'], photo: product16, slug: 'product-sixteen', name: 'Product Sixteen', price: 650},
-    {images: [col21, col22, col23], category: ['man', 'top', 'eunoia'], photo: product17, slug: 'product-seventeen', name: 'Product Seventeen', price: 1000},
-    {images: [col31, col32, col33], category: ['woman', 'dress', 'unilever'], photo: product18, slug: 'product-eighteen', name: 'Product Eighteen', price: 750},
-    {images: [col41, col42, col43], category: ['man', 'top', 'eunoia'], photo: product19, slug: 'product-nineteen', name: 'Product Nineteen', price: 930}
+    {
+        images: [col21, col22, col23], 
+        category: ['woman', 'dress', 'eunoia'], 
+        photo: product1, 
+        slug: 'product-one', 
+        name: 'Product One', 
+        price: 199.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['woman', 'dress', 'unilever'], 
+        photo: product2, 
+        slug: 'product-two', 
+        name: 'Product Two', 
+        price: 220.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product3, 
+        slug: 'product-three', 
+        name: 'Product Three', 
+        price: 450.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product4, 
+        slug: 'product-four', 
+        name: 'Product Four', 
+        price: 100.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['man', 'top', 'unilever'], 
+        photo: product5, 
+        slug: 'product-five', 
+        name: 'Product Five', 
+        price: 250.00
+    },
+
+    {
+        images: [col21, col22, col23], 
+        category: ['woman', 'top', 'eunoia'], 
+        photo: product6, 
+        slug: 'product-six', 
+        name: 'Product Six', 
+        price: 730.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['woman', 'skirt', 'eunoia'], 
+        photo: product7, 
+        slug: 'product-seven', 
+        name: 'Product Seven', 
+        price: 70.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['woman', 'skirt', 'unilever'], 
+        photo: product8, 
+        slug: 'product-eight', 
+        name: 'Product Eight', 
+        price: 30.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['woman', 'skirt', 'eunoia'], 
+        photo: product9, 
+        slug: 'product-nine', 
+        name: 'Product Nine', 
+        price: 40.00
+    },
+
+    {
+        images: [col21, col22, col23], 
+        category: ['woman', 'top', 'unilever'], 
+        photo: product10, 
+        slug: 'product-ten', 
+        name: 'Product Ten', 
+        price: 130.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['woman', 'skirt', 'eunoia'], 
+        photo: product11, 
+        slug: 'product-eleven', 
+        name: 'Product Eleven', 
+        price: 230.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['woman', 'top', 'eunoia'], 
+        photo: product12, 
+        slug: 'product-twelve', 
+        name: 'Product Twelve', 
+        price: 530.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['woman', 'top', 'unilever'], 
+        photo: product13, 
+        slug: 'product-thirteen', 
+        name: 'Product Thirteen', 
+        price: 330.00
+    },
+
+    {
+        images: [col21, col22, col23], 
+        category: ['woman', 'skirt', 'eunoia'], 
+        photo: product14, 
+        slug: 'product-fourteen', 
+        name: 'Product Fourteen', 
+        price: 189.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['woman', 'dress', 'eunoia'], 
+        photo: product15, 
+        slug: 'product-fifteen', 
+        name: 'Product Fifteen', 
+        price: 420.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['woman', 'top', 'unilever'], 
+        photo: product16, 
+        slug: 'product-sixteen', 
+        name: 'Product Sixteen', 
+        price: 650.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product17, 
+        slug: 'product-seventeen', 
+        name: 'Product Seventeen', 
+        price: 1000.00
+    },
+
+    {
+        images: [col21, col22, col23], 
+        category: ['woman', 'dress', 'unilever'], 
+        photo: product18, 
+        slug: 'product-eighteen', 
+        name: 'Product Eighteen', 
+        price: 750.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product19, 
+        slug: 'product-nineteen', 
+        name: 'Product Nineteen', 
+        price: 930.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['woman', 'trousers', 'eunoia'], 
+        photo: product20, 
+        slug: 'product-twenty', 
+        name: 'Product Twenty', 
+        price: 760.00
+    },
+
+    {
+        images: [col11, col12, col13], 
+        category: ['woman', 'top', 'unilever'], 
+        photo: product16, 
+        slug: 'product-sixteen', 
+        name: 'Product Sixteen', 
+        price: 650.00
+    },
+
+    {
+        images: [col21, col22, col23], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product17, 
+        slug: 'product-seventeen', 
+        name: 'Product Seventeen', 
+        price: 1000.00
+    },
+
+    {
+        images: [col31, col32, col33], 
+        category: ['woman', 'dress', 'unilever'], 
+        photo: product18, 
+        slug: 'product-eighteen', 
+        name: 'Product Eighteen', 
+        price: 750.00
+    },
+
+    {
+        images: [col41, col42, col43], 
+        category: ['man', 'top', 'eunoia'], 
+        photo: product19, 
+        slug: 'product-nineteen', 
+        name: 'Product Nineteen', 
+        price: 930.00
+    }
 ];
 
 export const homeCollection = [
-    {image: categoryImageTwo, name: 'Eunoia'},
-    {image: categoryImageOne, name: 'Unilever'}
+    {
+        image: categoryImageTwo, 
+        name: 'Eunoia'
+    },
+
+    {
+        image: categoryImageOne, 
+        name: 'Unilever'
+    }
 ];
 
 export const collection = [

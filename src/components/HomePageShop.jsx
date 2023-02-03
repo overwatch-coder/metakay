@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import Carousel from 'react-elastic-carousel'
 import Product from './Product';
 import { products } from '../utils';
+import CustomCarousel from './CustomCarousel';
+import { useState } from 'react';
 
 const HomePageShop = () => {
 
@@ -10,7 +12,7 @@ const HomePageShop = () => {
         { width: 1, itemsToShow: 1 },
         { width: 700, itemsToShow: 4 },
     ]
-
+    
   return (
     <section className='py-20 flex flex-col space-y-5 mx-auto'>
         <div className='text-center uppercase flex justify-center items-center space-x-3'>
@@ -42,7 +44,6 @@ const HomePageShop = () => {
             </Carousel>
         </div>
         
-
         <Link to='/shop' 
             className='mx-auto text-center py-4 px-5 md:p-5 rounded-full bg-gray hover:scale-105 hover:opacity-80 text-white uppercase font-medium text-xs lg:text-base'
         >

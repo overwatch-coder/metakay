@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Social = () => {
   return (
-    <div className='flex items-center gap-x-8 text-2xl py-3'>
+    <div className='flex items-center gap-x-5 text-2xl py-3'>
         <Link to='https://www.facebook.com' target='_blank' className='hover:opacity-80 hover:scale-110'> 
             <FaFacebook />
         </Link>
@@ -16,7 +16,7 @@ const Social = () => {
             <FaWhatsapp />
         </Link>
 
-        <Link to='https://www.instagram.com' target='_blank' className='hover:opacity-80 hover:scale-110'> 
+        <Link to='https://www.instagram.com/metakay' target='_blank' className='hover:opacity-80 hover:scale-110'> 
             <FaInstagram />
         </Link>
         

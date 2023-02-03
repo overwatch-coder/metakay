@@ -8,10 +8,10 @@ const HomePageCollection = () => {
 
         <div 
           className="flex flex-col space-y-16 items-center md:space-y-0 md:space-x-10 md:flex-row md:justify-center py-5">
-          {homeCollection.map((collection, index) => (
+          {homeCollection.map(({image, name}, index) => (
             <HomePageCollectionCategory 
-              categoryImage={collection.image} 
-              categoryName={collection.name} 
+              categoryImage={image} 
+              categoryName={name} 
               key={index}
             />
           ))}

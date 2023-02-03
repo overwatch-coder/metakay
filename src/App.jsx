@@ -9,7 +9,7 @@ import {
 import RootLayout from "./pages/Layout";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
-import Contact from "./pages/Contact";
+import Contact, { action as formAction } from "./pages/Contact";
 import Cart from "./pages/Cart";
 import Collection from "./pages/Collection";
 import ShopDetails from "./pages/ShopDetails";
@@ -28,7 +28,11 @@ const App = () => {
           <Route index element={<Shop />} />
         </Route>
         <Route path="shop/:slug" element={<ShopDetails />} />
-        <Route path="contact" element={<Contact />} />
+        <Route 
+          path="contact" 
+          element={<Contact />} 
+          action={formAction}
+        />
         <Route path="cart" element={<Cart />} />
       </Route>
     )

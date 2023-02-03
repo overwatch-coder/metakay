@@ -14,7 +14,12 @@ const ProductCarousel = ({breakPoints, images, name, extraClass}) => {
 
             {/* Mapping through all the available products */}
             {images.map((image, index) => (
-                <img src={image} alt={name} key={index} className={`w-full object-cover pt-5 ${extraClass}`} />
+              <img 
+                src={image} 
+                alt={name} 
+                key={index} 
+                className={`w-full object-cover pt-5 ${extraClass}`} 
+              />
             ))}
         </Carousel>
     </div>
