@@ -1,10 +1,9 @@
 import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
-import { useActionData, Form } from 'react-router-dom';
+import { useActionData, Form, redirect } from 'react-router-dom';
 
 const Contact = () => {
   const data = useActionData();
-  console.log(data);
 
   return (
     <section>
@@ -81,8 +80,8 @@ const Contact = () => {
                 name='name' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
                 placeholder='your name'
-                required
               />
+              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.name}</p>}
             </div>
 
             <div className='text-gray flex flex-col gap-y-3'>
@@ -92,8 +91,8 @@ const Contact = () => {
                 name='email' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
                 placeholder='your email'
-                required
               />
+              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.email}</p>}
             </div>
 
             <div className='text-gray flex flex-col gap-y-3'>
@@ -104,9 +103,9 @@ const Contact = () => {
                 rows="10" 
                 placeholder='leave a message'
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md'
-                required
               >
               </textarea>
+              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.message}</p>}
             </div>
 
             <button className='uppercase font-medium py-4 px-5 mx-auto text-center w-full bg-gray text-white hover:opacity-80 hover:bg-white hover:text-black hover:border-2 hover:border-gray rounded transition duration-500'>
@@ -132,16 +131,36 @@ const Contact = () => {
   )
 }
 
-export const action = async ({request}) => {
+export const contactAction = async ({ request }) => {
   const formData = await request.formData();
 
   const data = {
-    name: formData.name,
-    email: formData.email,
-    message: formData.message
+    name: formData.get('name'),
+    email: formData.get('email'),
+    message: formData.get('message'),
+    errors: {},
   }
 
-  return {data, formData};
+  // validate user form data
+  if(data.name == ''){
+    data.errors.name = 'Please provide your full name!';
+  }
+
+  if(data.email == '' || !data.email.includes('@')){
+    data.errors.email = 'Please provide a valid email address!';
+  }
+
+  if(data.message == '' || data.message.length < 20){
+    data.errors.message = 'Message cannot be less than 20 characters!';
+  }
+
+  if(Object.keys(data.errors).length){
+    return data;
+  }
+
+  console.log(data);
+
+  return redirect('/');
 }
 
 

@@ -3,7 +3,7 @@ import HomePageCollectionCategory from "./HomePageCollectionCategory"
 
 const HomePageCollection = () => {
   return (
-    <section className="px-7 mx-auto py-20">
+    <section id="collection" className="px-7 mx-auto py-20">
         <h1 className="text-xl md:text-2xl font-medium uppercase">Collection</h1>
 
         <div 

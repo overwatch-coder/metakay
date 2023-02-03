@@ -21,7 +21,6 @@ const Footer = () => {
             <div className='flex flex-col items-start space-y-4'>
                 <h3 className='uppercase font-medium mb-2'>Information</h3>
                 <Link to='/' className='hover:opacity-80 text-sm'>Home</Link>
-                <Link to='/collection' className='hover:opacity-80 text-sm'>Collection</Link>
                 <Link to='/shop' className='hover:opacity-80 text-sm'>Shop</Link>
                 <Link to='/contact' className='hover:opacity-80 text-sm'>Contact</Link>
                 <Link to='/' className='hover:opacity-80 text-sm'>Privacy Policy</Link>
