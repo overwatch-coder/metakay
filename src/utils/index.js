@@ -49,6 +49,7 @@ import heroOne from '../assets/hero/hero1.jpg';
 import heroTwo from '../assets/hero/hero2.jpg'
 
 // objects to export
+
 export const products = [
     {
         images: [col21, col22, col23], 

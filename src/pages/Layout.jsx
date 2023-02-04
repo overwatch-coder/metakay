@@ -14,7 +14,7 @@ const Layout = () => {
     <section className="flex flex-col min-h-screen scroll-smooth">
         <Header />
         
-        <main className="mb-auto mt-16">
+        <main className="mb-auto mt-16 md:mt-24">
             <Outlet />
         </main>
 

@@ -16,7 +16,7 @@ const Header = () => {
 
             {/* Logo */}
             <Link to='/' onClick={() => setNavbarActive(false)}>
-                <img src={Logo} alt="metakay logo" className='w-16 h-16'  />
+                <img src={Logo} alt="metakay logo" className='w-16 md:w-24 h-16 md:h-24'  />
             </Link>
 
             {/* Nav links desktop */}
