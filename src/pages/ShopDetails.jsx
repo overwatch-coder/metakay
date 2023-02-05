@@ -40,7 +40,7 @@ const ShopDetails = () => {
 
   return (
     <section>
-      <div className="grid grid-cols-1 lg:grid-cols-3 pt-5">
+      <div className="grid grid-cols-1 lg:grid-cols-3 pt-5 gap-y-10 lg:gap-x-20">
         {/* Product Images */}
         <section className="relative w-screen lg:w-[750px] xl:w-[950px] px-5 lg:px-16 flex flex-col gap-y-3 col-span-1 lg:col-span-2">
 
