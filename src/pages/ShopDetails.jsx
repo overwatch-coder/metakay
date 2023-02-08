@@ -1,30 +1,48 @@
-import { Link, useParams } from "react-router-dom";
-import { products } from '../utils';
+import { Link, useParams, useNavigation, useLoaderData } from "react-router-dom";
 import ProductCarousel from '../components/ProductCarousel';
 import ProductInformation from "../components/ProductInformation";
 import ProductDescription from "../components/ProductDescription";
 import Product from "../components/Product";
 import Carousel from "react-elastic-carousel"
+import Loader from "../components/Loader";
+import { createClient } from "contentful";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+
+const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
+
+const client = createClient({
+  space: VITE_SPACE_ID,
+  accessToken: VITE_ACCESS_TOKEN
+})
 
 const ShopDetails = () => {
 
-    const { slug } = useParams();
-    const singleProducts = products.filter(product => product.slug === slug)[0];
-    singleProducts.excerpt = "Classic, tailored blazer with a modern twist";
-    singleProducts.reference = crypto.randomUUID().slice(0,12);
-    singleProducts.sizes = ['S', 'M', 'L', 'XL'];
-    singleProducts.colors = [
-      {name: 'yellow', color: 'bg-yellow-500'},
-      {name: 'amber', color: 'bg-amber-800'},
-      {name: 'white', color: 'bg-white'},
-      {name: 'emerald', color: 'bg-emerald-800'}
-    ];
+  const products = useLoaderData();
 
-    const {
-        photo, 
-        images, 
-        name, 
+  // displaying loading screen while data is being fetched
+  const navigation = useNavigation();
+  if(navigation.state === 'loading'){
+    return (
+      <Loader />
+    )
+  }
+
+    const { slug } = useParams();
+    const singleProducts = products.filter(product => product.fields.slug === slug)[0];
+    const { 
+      fields: 
+        {
+          photo: 
+            {fields: 
+              {file: { url }}
+            }, 
+          name, 
+          images, 
+          description, 
+        } 
       } = singleProducts;
+
+    singleProducts.fields.reference = crypto.randomUUID().slice(0,16);
 
     const breakPoints = [
       { width: 1, itemsToShow: 1 },
@@ -36,7 +54,7 @@ const ShopDetails = () => {
       { width: 700, itemsToShow: 4 }
     ];
 
-    const similarProducts = products.filter(product => product.slug !== slug);
+    const similarProducts = products.filter(product => product.fields.slug !== slug);
 
   return (
     <section>
@@ -53,7 +71,7 @@ const ShopDetails = () => {
             </Link>
           </div>
 
-          <img src={photo} alt={name} className='w-full object-cover px-5' />
+          <img src={`https:${url}`} alt={name} className='w-full object-cover px-5' />
 
           <ProductCarousel 
             breakPoints={breakPoints} 
@@ -73,21 +91,7 @@ const ShopDetails = () => {
       <div className="flex flex-col gap-y-3 lg:flex-row lg:justify-center items-center lg:items-start py-10 px-5">
         <ProductDescription 
           title={'Description'}
-          description={`
-            <article className="flex flex-col gap-y-4">
-              <p>Classic, tailored blazer with a modern twist: The renowned MetaKay brand has brought back a classic style, now enhanced and improved. The Pineapple Top and Skirt features the Eunoia patch, an embroidered felt design that adds a tactile, textured touch. This unique piece is sure to make a statement in any fashion-forward wardrobe.</p>
-              <div>--------------------</div>
-              <div className="flex flex-col gap-y-2 mt-5">
-                <h3 className="text-uppercase font-bold">PRODUCT FEATURES</h3>
-                <ul>
-                  <li>Structured, professional fit</li>
-                  <li>Unique, oversized lapels</li>
-                  <li>Made of high-quality wool fabric</li>
-                  <li>Elevates any work or casual attire</li>
-                </ul>
-              </div>
-            </article>`
-          }
+          description={documentToReactComponents(description)}
         />
 
 
@@ -114,12 +118,12 @@ const ShopDetails = () => {
             >
 
             {/* Mapping through all the available products */}
-              {similarProducts.slice(0,8).map((product, index) => (
+              {similarProducts.slice(0,10).map((product, index) => (
                 <Product 
-                  productImage = {product.photo}
-                  slug={product.slug} 
-                  productName={product.name}
-                  price={product.price}
+                  productImage = {product.fields.photo.fields.file.url}
+                  slug={product.fields.slug} 
+                  productName={product.fields.name}
+                  price={product.fields.price}
                   key={index}
                 />
               )) }
@@ -131,3 +135,21 @@ const ShopDetails = () => {
 }
 
 export default ShopDetails
+
+export const shopProductsDetails = async () => {
+  const shopProductsDetailsEntry = await client.getEntries({
+    content_type: 'product'
+  })
+
+  if(!shopProductsDetailsEntry){
+    throw Error('No products found!. Please try again letter');
+  }
+
+  const products = shopProductsDetailsEntry.items;
+
+  if(products.length === 0){
+    throw Error('No products found!. Please try again letter');
+  }
+
+  return products;
+}

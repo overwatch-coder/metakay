@@ -1,36 +1,43 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigation, useLoaderData } from 'react-router-dom';
 import SingleCollection from '../components/SingleCollection';
-import { collection } from '../utils';
+import { createClient } from "contentful";
+import Loader from '../components/Loader';
+
+const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
+
+const client = createClient({
+  space: VITE_SPACE_ID,
+  accessToken: VITE_ACCESS_TOKEN
+})
 
 const Collection = () => {
+  // getting collection name from url
     const { colname } = useParams();
+
+    // getting the loaded data
+    const collection = useLoaderData();
+
+    // destructuring the data gotten
+    const { heroImage: {fields : { file }}, collections } = collection[0]?.fields;
 
     const breakPoints = [
       { width: 1, itemsToShow: 1 },
       { width: 600, itemsToShow: 2 },
   ]
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  const prev = () => {
-    const isFirstIndex = currentIndex === 0;
-    !isFirstIndex ? setCurrentIndex(prev => prev - 1) : setCurrentIndex(collection.length - 1);
+  // set loading screen
+  const navigation = useNavigation();
+  if(navigation.state === 'loading'){
+    return (
+      <Loader />
+    )
   }
-
-  const next = () => {
-    const isLastIndex = currentIndex === collection.length - 1;
-    !isLastIndex ? setCurrentIndex(prev => prev + 1) : setCurrentIndex(0);
-  }
-
-  let singleCollection = collection.filter(col => col.name.toLowerCase() === colname.toLowerCase());
 
   return (
     <div className='pb-2'>
-
       {/* Hero Section */}
       <section className='relative bg-gray'>
-        <img src={singleCollection[0].heroImage} alt="collection hero image" className='w-full object-cover mix-blend-multiply md:h-[85vh]' />
+        <img src={'https:' + file.url} alt="collection hero image" className='w-full object-cover mix-blend-multiply md:h-[85vh]' />
 
         <div className='absolute uppercase font-bold text-center top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'>
           <h2 className='text-white flex flex-col space-y-4 sm:space-y-6'>
@@ -46,48 +53,44 @@ const Collection = () => {
       <section 
         className='py-16 flex flex-col space-y-10'
       >
-        {singleCollection.map(({photo, images, name, description}, index) => (
-          <SingleCollection
-            photo={photo}
-            description={description}
-            name={name}
-            images={images} 
-            breakPoints={breakPoints}
-            key={index}
-          />
-        ))}
+        {collections.length > 1 ? 
+          collections.map(({fields: {name, excerpt, photo, images}}, index) => (
+            <SingleCollection
+              photo={photo.fields.file.url}
+              description={excerpt}
+              name={name}
+              images={images}
+              breakPoints={breakPoints}
+              key={index}
+            />
+          )) :
+            <SingleCollection
+              photo={collections[0].fields.photo.fields.file.url}
+              description={collections[0].fields.excerpt}
+              name={collections[0].fields.name}
+              images={collections[0].fields.images}
+              breakPoints={breakPoints}
+            />
+        }
       </section>
-
-      {/* Pagination goes here */}
-      <div className='pb-20 text-center flex justify-center items-center space-x-5'>
-          <button 
-            className={`${currentIndex === 0 ? 'opacity-60' : 'hover:scale-110 hover:opacity-80'} text-base bg-gray text-white px-2 py-1 sm:px-4 sm:py-2 rounded`}
-            onClick={prev}
-            disabled={currentIndex === 0 }
-          >
-            Prev
-          </button>
-
-          {collection.map((col, index) => (
-            <button 
-              key={index} 
-              className={`bg-gray text-white text-base px-3 py-2 sm:text-lg sm:py-3 sm:px-4 rounded hover:scale-110 ${index == currentIndex ? 'opacity-100' : 'opacity-60' }`}
-              onClick={() => setCurrentIndex(index)}
-            >
-              {index + 1}
-            </button>
-          ))}
-
-          <button 
-            className={`${currentIndex === collection.length - 1 ? 'opacity-60' : 'hover:scale-110 hover:opacity-80'} text-base bg-gray text-white px-2 py-1 sm:px-4 sm:py-2 rounded`}
-            disabled={currentIndex === collection.length - 1}
-            onClick={next}
-          >
-            Next
-          </button>
-      </div>
     </div>
   )
 }
 
 export default Collection
+
+export const singleCollectionLoader = async ({params}) => {
+  const {colname} = params;
+  const collectionEntry = await client.getEntries({
+    content_type: 'collection',
+    'fields.name': colname
+  })
+
+  if(collectionEntry.items.length === 0){
+    throw Error('Page not found!');
+  }
+
+  const collection = collectionEntry.items;
+
+  return collection;
+}

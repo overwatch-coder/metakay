@@ -142,15 +142,15 @@ export const contactAction = async ({ request }) => {
   }
 
   // validate user form data
-  if(data.name == ''){
+  if(data.name.trim() == ''){
     data.errors.name = 'Please provide your full name!';
   }
 
-  if(data.email == '' || !data.email.includes('@')){
+  if(data.email.trim() == '' || !data.email.includes('@')){
     data.errors.email = 'Please provide a valid email address!';
   }
 
-  if(data.message == '' || data.message.length < 20){
+  if(data.message.trim() == '' || data.message.trim().length < 20){
     data.errors.message = 'Message cannot be less than 20 characters!';
   }
 
@@ -158,6 +158,7 @@ export const contactAction = async ({ request }) => {
     return data;
   }
 
+  // send into database or api here
   console.log(data);
 
   return redirect('/');

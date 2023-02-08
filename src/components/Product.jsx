@@ -1,15 +1,23 @@
 import { FaCartPlus, FaEye } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Product = ({productImage, slug, productName, price, category}) => {
+  const location = useLocation();
+
   return (
     <div className={`flex flex-col col-span-1`}>
         <Link to={`/shop/${slug}`}>
-          <img src={productImage} alt={productName} className='w-full object-cover h-[50vh]' />
+          <img 
+            src={'https:' + productImage } 
+            alt={productName} 
+            className={`${location.pathname === '/shop' ? 'w-full' : 'w-[350px]'} md:w-[300px] object-cover h-[60vh] md:h-[50vh]`} 
+          />
         </Link>
 
         <div className='bg-gray py-4 text-white flex justify-around'>
-            <FaCartPlus className='cursor-pointer text-base lg:text-xl hover:scale-110' />
+            <Link to={`/shop/${slug}`} className='hover:scale-110'>
+              <FaCartPlus className='cursor-pointer text-base lg:text-xl hover:scale-110' />
+            </Link>
 
             <Link to={`/shop/${slug}`} className='hover:scale-110'>
                 <FaEye className='text-base lg:text-xl' />

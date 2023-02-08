@@ -4,6 +4,7 @@ import About from "../components/About";
 import HomePageShop from "../components/HomePageShop";
 
 const Home = () => {
+
   return (
     <div>
       <Hero />

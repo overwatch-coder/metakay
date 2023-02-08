@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^15.16.2",
+    "contentful": "^9.3.0",
     "isomorphic-dompurify": "^0.26.0",
     "json-server": "^0.17.1",
     "react": "^18.2.0",

@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
 import Carousel from 'react-elastic-carousel'
 import Product from './Product';
-import { products } from '../utils';
-import CustomCarousel from './CustomCarousel';
-import { useState } from 'react';
+import { useContext } from 'react';
+import { productContext } from '../context/ProductContext';
 
 const HomePageShop = () => {
 
@@ -12,7 +11,10 @@ const HomePageShop = () => {
         { width: 1, itemsToShow: 1 },
         { width: 700, itemsToShow: 4 },
     ]
-    
+
+    // const { allProducts } = useContext(productContext);
+    const { allProducts } = useOutletContext();
+
   return (
     <section className='py-20 flex flex-col space-y-5 mx-auto'>
         <div className='text-center uppercase flex justify-center items-center space-x-3'>
@@ -32,12 +34,12 @@ const HomePageShop = () => {
             >
 
             {/* Mapping through all the available products */}
-                {products.slice(0,8).map((product, index) => (
+                {allProducts?.slice(0,10).map(({fields}, index) => (
                     <Product 
-                        productImage = {product.photo}
-                        slug={product.slug} 
-                        productName={product.name}
-                        price={product.price}
+                        productImage = {fields.photo?.fields?.file.url}
+                        slug={fields.slug} 
+                        productName={fields.name}
+                        price={fields.price}
                         key={index}
                     />
                 )) }

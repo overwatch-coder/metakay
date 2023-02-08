@@ -13,7 +13,18 @@ const ProductDescription = ({title, description}) => {
           <FaBookReader />
         </h3>
 
-        <div className='text-white leading-9 lg:leading-10 tracking-wider text-sm lg:text-base flex flex-col gap-y-4 pt-4 pb-10' dangerouslySetInnerHTML={{ __html: sanitizedDescription }} />
+        {title !== 'Description' ? <div 
+          className='text-white leading-9 lg:leading-10 tracking-wider text-sm lg:text-base flex flex-col gap-y-4 pt-4 pb-10' 
+          dangerouslySetInnerHTML={{ __html: sanitizedDescription }} 
+        />
+        :
+        <div 
+          className='text-white leading-9 lg:leading-10 tracking-wider text-sm lg:text-base flex flex-col gap-y-4 pt-4 pb-10'  
+        >
+          {description}
+        </div>}
+
+
     </section>
   )
 }

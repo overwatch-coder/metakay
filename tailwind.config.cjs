@@ -8,8 +8,9 @@ module.exports = {
     extend: {
       keyframes: {
         slideX: {
-          from: { transform: 'translateX(100%)' },
-          to: { transform: 'translateX(0)' }
+          "0%": { transform: 'translateX(-80%)' },
+          "50%": { transform: 'translateX(80%)' },
+          "100%": { transform: 'translateX(-80%)' }
         },
         slideY: {
           from: { transform: 'translateY(0)' },
@@ -17,8 +18,8 @@ module.exports = {
         }
       },
       animation: {
-        slideX: 'slideX 1s ease-in-out',
-        slideY: 'slideY 1s ease-in-out'
+        slideX: 'slideX 5s ease-in-out infinite',
+        slideY: 'slideY 1s ease-in-out infinite'
       },
       colors: {
         gray: '#3A3B3C'

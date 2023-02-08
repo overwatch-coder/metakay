@@ -7,10 +7,11 @@ const ColorSize = ({
         extraClass
     }) => {
 
-        let selectedName;
-        if(selectedItem > -1){
-            selectedName = name === 'Color' ? items[selectedItem].name : items[selectedItem];
-        }
+    let selectedName;
+
+    if(selectedItem > -1){
+        selectedName = items[selectedItem];
+    }
 
   return (
     <div className="space-y-2">
@@ -25,9 +26,9 @@ const ColorSize = ({
                 key={index} 
                 className={`
                     ${extraClass} 
-                    ${selectedItem === index ? 'bg-transparent text-white border-green-400 border-2' 
+                    ${selectedItem === index ? 'bg-transparent border-green-400 border-2 text-black' 
                     : 'text-black hover:bg-transparent hover:text-white hover:border-white hover:border-2'} font-medium uppercase cursor-pointer 
-                    ${name.toLowerCase() === 'color' ? item.color : ''}
+                    ${name.toLowerCase() === 'color' ? `bg-[${item}]` : ''}
                 `}
                 onClick={() => setSelectedItem(index)}
             >

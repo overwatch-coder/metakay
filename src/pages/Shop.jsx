@@ -1,17 +1,30 @@
 import { useState } from "react";
 import Product from "../components/Product";
-import { products } from "../utils";
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from 'react-icons/hi';
+import { useNavigation, useOutletContext } from "react-router-dom";
+import Loader from "../components/Loader";
 
 const Shop = () => {
-  const total = products.length;
+  const { shopProducts } = useOutletContext();
+
+   // Display loading screen when data is being loaded
+   const navigation = useNavigation();
+   if(navigation.state === 'loading'){
+     return (
+       <Loader />
+     )
+   }
+
+  // functionality for prev, next and paginated product items
+  const total = shopProducts.length;
   const [currentIndex, setCurrentIndex] = useState(1);
   const productPerPage = 12;
   const lastPageIndex = currentIndex * productPerPage;
   const firstPageIndex = lastPageIndex - productPerPage;
 
-  const productsToDisplay = products.slice(firstPageIndex, lastPageIndex);
+  const productsToDisplay = shopProducts.slice(firstPageIndex, lastPageIndex);
 
+  // creating a pagination to display the remaining products
   let pages = [];
   for(let i = 1; i <= Math.ceil(total / productPerPage ); i++) {
     pages.push(i);
@@ -25,12 +38,13 @@ const Shop = () => {
     currentIndex === 1 ? setCurrentIndex(pages.length) : setCurrentIndex(prev => prev - 1);
   }
 
+
   return (
     <div>
       <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
-        {productsToDisplay.map(({photo, name, slug, price, category}, index) => (
+        {productsToDisplay.map(({fields: {photo, name, slug, price, category}}, index) => (
           <Product 
-            productImage={photo}
+            productImage={photo.fields.file.url}
             productName={name}
             slug={slug}
             price={price}

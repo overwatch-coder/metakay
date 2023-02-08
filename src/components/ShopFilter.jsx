@@ -5,7 +5,7 @@ import { VscChevronDown, VscChevronUp, VscStarEmpty, VscStarFull } from 'react-i
 import { homeCollection, shopCategory } from "../utils";
 
 
-const ShopFilter = () => {
+const ShopFilter = ({categoryClicked}) => {
     const [showCategory, setShowCategory] = useState(false);
     const [showCollection, setShowCollection] = useState(false);
 
@@ -29,7 +29,7 @@ const ShopFilter = () => {
         </div>
 
         {/* Dropdown for category filter */}
-        <div className={`${showCategory ? 'flex' : 'hidden'} md:block z-30 flex-col gap-y-5 bg-gray w-full md:w-[180px] xl:w-[200px] py-3 px-4 xl:px-6 my-4 rounded shadow-md text-white ${showCollection ? 'h-[80vh]': 'h-[70vh]'} md:h-screen`}>
+        <div className={`${showCategory ? 'flex' : 'hidden'} md:block z-30 flex-col gap-y-5 bg-gray w-full md:w-[180px] xl:w-[200px] py-3 px-4 xl:px-6 my-4 rounded shadow-md text-white ${showCollection ? 'h-[100vh]': 'h-[90vh]'} md:h-[140vh]`}>
 
             <h3 className='uppercase font-medium text-white py-5'>
                 <span className='border-b-2 tracking-widest'>Category</span>
@@ -38,7 +38,11 @@ const ShopFilter = () => {
             {/* Different categories */}
             <div className='flex flex-col gap-y-5 pb-5'>
                 {shopCategory.map((cat, index) => (
-                    <article key={index} className='flex items-center space-x-2 cursor-pointer'>
+                    <article 
+                        key={index} 
+                        className='flex items-center space-x-2 cursor-pointer'
+                        onClick={() => categoryClicked(cat)}
+                    >
                         <VscStarEmpty className='text-xl' />
                         <span className='text-base md:text-xl capitalize'>{cat}</span>
                     </article>
@@ -57,10 +61,14 @@ const ShopFilter = () => {
 
                     {/* Sub dropdown for collection */}
                     <div className={`${showCollection ? 'flex flex-col px-5 gap-y-4 bg-gray w-full p-5 md:text-xl' : 'hidden'}`}>
-                    {homeCollection.map(({name}, index) => (
-                        <h5 key={index} className='flex items-center space-x-3 cursor-pointer'>
+                    {homeCollection.map((col, index) => (
+                        <h5 
+                            key={index} 
+                            className='flex items-center space-x-3 cursor-pointer'
+                            onClick={() => categoryClicked(col)}
+                        >
                             <VscStarFull />
-                            <span>{ name }</span>
+                            <span>{ col }</span>
                         </h5>
                     ))}
                     </div>

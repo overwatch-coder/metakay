@@ -11,9 +11,9 @@ const ProductInformation = ({singleProducts}) => {
         price, 
         excerpt, 
         reference, 
-        sizes, 
-        colors
-      } = singleProducts;
+        size, 
+        color
+      } = singleProducts.fields;
 
     const [selectedSize, setSelectedSize] = useState(-1);
     const [selectedColor, setSelectedColor] = useState(-1);
@@ -54,7 +54,7 @@ const ProductInformation = ({singleProducts}) => {
             {/* Size */}
             <ColorSize 
               name={'Size'}
-              items={sizes}
+              items={size}
               selectedItem={selectedSize}
               setSelectedItem={setSelectedSize}
               extraClass={'rounded px-3 py-2 bg-white'}
@@ -64,7 +64,7 @@ const ProductInformation = ({singleProducts}) => {
             {/* Color */}
             <ColorSize 
               name={'Color'}
-              items={colors}
+              items={color}
               selectedItem={selectedColor}
               setSelectedItem={setSelectedColor}
               extraClass={`rounded-full p-5`}
