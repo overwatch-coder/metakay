@@ -4,15 +4,19 @@ import Header from "./Header";
 
 const ErrorElement = () => {
     const error = useRouteError();
+    const { MODE } = import.meta.env;
 
   return (
     <div>
         <Header />
-        <div className="py-60 text-center mx-auto flex flex-col gap-y-10 items-center">
-            <h2 className="text-2xl">{error && `An error has occured! Please try again later or check your network configuration`}</h2>
+        <div className="py-60 text-center mx-auto flex flex-col gap-y-4 items-center">
+            <h2 className="text-5xl">Oops!</h2>
+            <p className="text-xl">Sorry, an unexpected error has occurred.</p>
+            <p className="text-xl">Please try again later</p>
+            {MODE === 'development' && <p><i>{error && error.message}</i></p>}
             <Link 
                 to="/"
-                className="px-4 py-2 bg-gray text-white uppercase w-[100px] hover:opacity-80" 
+                className="mt-5 px-6 py-3 bg-gray text-white uppercase w-[200px] hover:opacity-80 rounded" 
             >
                 Go back
             </Link>

@@ -1,9 +1,21 @@
 import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
-import { useActionData, Form, redirect } from 'react-router-dom';
+import { useActionData, Form, redirect, useLocation } from 'react-router-dom';
+import { useState } from 'react';
 
 const Contact = () => {
-  const data = useActionData();
+  let data = useActionData();
+
+  const [inputs, setInputs] = useState({
+    name: data?.name,
+    email: data?.email,
+    message: data?.message,
+    errors: data?.errors
+  })
+
+  const handleReset = () => {
+    setInputs({})
+  }
 
   return (
     <section>
@@ -76,28 +88,31 @@ const Contact = () => {
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Name</label>
               <input 
+                defaultValue={inputs && inputs.name}
                 type="text" 
                 name='name' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
                 placeholder='your name'
               />
-              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.name}</p>}
+              {inputs && inputs.errors && <p className='text-red-500'>{inputs.errors && inputs.errors.name}</p>}
             </div>
 
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Email</label>
               <input 
+                defaultValue={inputs && inputs.email}
                 type="email" 
                 name='email' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
                 placeholder='your email'
               />
-              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.email}</p>}
+              {inputs && inputs.errors && <p className='text-red-500'>{inputs.errors && inputs.errors.email}</p>}
             </div>
 
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Message</label>
               <textarea 
+                defaultValue={inputs && inputs.message}
                 name="message" 
                 cols="30" 
                 rows="10" 
@@ -105,14 +120,30 @@ const Contact = () => {
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md'
               >
               </textarea>
-              {data && data.errors && <p className='text-red-500'>{data.errors && data.errors.message}</p>}
+              {inputs && inputs.errors && 
+                <p className='text-red-500'>
+                  {inputs.errors && inputs.errors.message}
+                </p>
+              }
             </div>
 
             <button className='uppercase font-medium py-4 px-5 mx-auto text-center w-full bg-gray text-white hover:opacity-80 hover:bg-white hover:text-black hover:border-2 hover:border-gray rounded transition duration-500'>
               Submit
             </button>
+
+            {data && Object.keys(inputs).length > 0 && 
+              <button
+                type='reset' 
+                className='uppercase font-medium py-4 px-5 mx-auto text-center w-full bg-red-500 text-white hover:opacity-80 hover:bg-white hover:text-red-500 hover:border-2 hover:border-red-500 rounded transition duration-500'
+                onClick={handleReset}
+              >
+              Reset
+              </button>
+            }
           </Form>
         </div>
+
+        {data && !data.errors && <p>Submitted Successfully</p>}
       </div>
 
       {/* Map */}
@@ -131,9 +162,10 @@ const Contact = () => {
   )
 }
 
+export default Contact
+
 export const contactAction = async ({ request }) => {
   const formData = await request.formData();
-
   const data = {
     name: formData.get('name'),
     email: formData.get('email'),
@@ -161,8 +193,6 @@ export const contactAction = async ({ request }) => {
   // send into database or api here
   console.log(data);
 
-  return redirect('/');
+  return redirect('/contact');
 }
 
-
-export default Contact
