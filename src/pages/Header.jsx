@@ -8,7 +8,7 @@ import Social from '../components/Social';
 import { productContext } from '../context/ProductContext';
 
 const Header = () => {
-    const { navbarActive, setNavbarActive } = useContext(productContext);
+    const { navbarActive, setNavbarActive, cartProducts } = useContext(productContext);
 
   return (
     <header className="bg-white w-screen fixed drop-shadow-md z-50 border-gray border-b-[1px] md:border-0">
@@ -28,7 +28,7 @@ const Header = () => {
                 <NavLink to='/cart' className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {0}
+                        {cartProducts.length}
                     </span>
                 </NavLink>
             </nav>
@@ -40,7 +40,7 @@ const Header = () => {
                 <NavLink to='/cart' className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {0}
+                        {cartProducts.length}
                     </span>
                 </NavLink>
 

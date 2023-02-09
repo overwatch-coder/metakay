@@ -13,13 +13,13 @@ module.exports = {
           "100%": { transform: 'translateX(-80%)' }
         },
         slideY: {
-          from: { transform: 'translateY(0)' },
-          to: { transform: 'translateY(100%)' }
+          from: { transform: 'translateY(-100%)', opacity: 0 },
+          to: { transform: 'translateY(0)', opacity: 1 }
         }
       },
       animation: {
         slideX: 'slideX 5s ease-in-out infinite',
-        slideY: 'slideY 1s ease-in-out infinite'
+        slideY: 'slideY 1s ease-in-out'
       },
       colors: {
         gray: '#3A3B3C'

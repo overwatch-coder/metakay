@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom"
 
-const HomePageCollectionCategory = ({categoryImage, categoryName}) => {
+const HomePageCollectionCategory = ({categoryImage, categoryName, extraClass}) => {
   return (
     <div className="relative">
         <img 
             src={'https:' + categoryImage} 
             alt={'Metakay Category - ' + categoryName } 
-            className='w-full object-contain' 
+            className={`w-full object-contain ${extraClass}`}
         />
 
         <h3 className="bg-white opacity-70 hover:opacity-95 mix-blend-luminosity rounded-full p-5 md:p-7 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">

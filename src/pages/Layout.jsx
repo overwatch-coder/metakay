@@ -20,7 +20,7 @@ const Layout = () => {
   }, [pathname])
 
   // get products data from loader function
-  const products = useLoaderData();
+  const { products, collections} = useLoaderData();
 
   // displaying loading screen while data is being fetched
   const navigation = useNavigation();
@@ -37,7 +37,7 @@ const Layout = () => {
         <Header />
         
         <main className="mb-auto mt-16 md:mt-24">
-            <Outlet context={{ allProducts: products.slice(2,22), collections: products.slice(0,2) }} />
+            <Outlet context={{ allProducts: products, collections: collections }} />
         </main>
 
         <Footer />
@@ -48,8 +48,20 @@ const Layout = () => {
 export default Layout
 
 export const productsLoader = async () => {
-  const productEntries = await client.getEntries();
+  const productEntries = await client.getEntries({
+    content_type: 'product'
+  });
+
+  const collectionEntries = await client.getEntries({
+    content_type: 'collection'
+  });
 
   const products = productEntries.items;
-  return products;
+  const collections = collectionEntries.items;
+
+  if(!products || !collections){
+    throw Error('Page not found!');
+  }
+
+  return {products, collections};
 }

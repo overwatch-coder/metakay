@@ -1,11 +1,28 @@
 import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
-import { useActionData, Form, redirect, useLocation } from 'react-router-dom';
-import { useState } from 'react';
+import { useActionData, Form, redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+
+const location = window.location;
 
 const Contact = () => {
   let data = useActionData();
 
+  // get success message from url search params
+  let success = location.search?.split('=')[1] ? true : false;
+  const [displaySuccess, setDisplaySuccess] = useState(false);
+
+  // display or hide success message based url search params
+  useEffect(() => {
+    if(success){
+      setDisplaySuccess(true);
+      setTimeout(() => {
+        setDisplaySuccess(false);
+      }, 4000)
+    }
+  }, [])
+
+  // assign values from the data to input elements
   const [inputs, setInputs] = useState({
     name: data?.name,
     email: data?.email,
@@ -13,6 +30,7 @@ const Contact = () => {
     errors: data?.errors
   })
 
+  // clear input fields as well as error elements
   const handleReset = () => {
     setInputs({})
   }
@@ -24,6 +42,14 @@ const Contact = () => {
         className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-xl tracking-wider md:text-3xl'>
         <h2>Contact - Metakay</h2>
       </div>
+
+      
+      {displaySuccess && 
+        <div className='mx-7 md:w-[500px] bg-green-500 rounded p-5 text-center text-white text-base md:text-xl shadow-md space-y-4 animate-slideY md:mx-auto'>
+          <h3>Thank you for contacting us!</h3>
+          <p>We will get back to you shortly </p>
+        </div>
+      }
 
       {/* General Information */}
       <div className='px-7 pt-5 flex flex-col gap-y-7 md:flex-row md:justify-evenly'>
@@ -142,8 +168,6 @@ const Contact = () => {
             }
           </Form>
         </div>
-
-        {data && !data.errors && <p>Submitted Successfully</p>}
       </div>
 
       {/* Map */}
@@ -192,7 +216,8 @@ export const contactAction = async ({ request }) => {
 
   // send into database or api here
   console.log(data);
+  location.search = 'success=true';
 
-  return redirect('/contact');
+  return redirect('/contact', 200);
 }
 
