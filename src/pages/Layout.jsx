@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { createClient } from "contentful";
 import Loader from '../components/Loader';
+import { Helmet } from "react-helmet";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -31,16 +32,28 @@ const Layout = () => {
     )
   }
 
-
   return (
     <section className="flex flex-col min-h-screen scroll-smooth">
-        <Header />
-        
-        <main className="mb-auto mt-16 md:mt-24">
-            <Outlet context={{ allProducts: products, collections: collections }} />
-        </main>
+      <Helmet>
+        <meta name="title" content={'Metakay | Official Website | Designs  | Collections - E-Shop'} />
+        <meta name="description" content="Metakay specializes in creating all your custom-made fashion designs that are tailored to your personal needs." />
+        <meta name="keywords" content="metakay, fashion, designs, eunoia, e-commerce, shop, custom-made, collections, new, modern, customize" />
+        <meta name="robots" content="index, follow" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="language" content="English" />
+        <meta name="revisit-after" content="3 days" />
+        <meta name="author" content="Metakay" />
+        <meta http-equiv="X-UA-Compatible" content="IE=7" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      </Helmet>
+    
+      <Header />
+      
+      <main className="mb-auto mt-16 md:mt-24">
+          <Outlet context={{ allProducts: products, collections: collections }} />
+      </main>
 
-        <Footer />
+      <Footer />
     </section>
   )
 }

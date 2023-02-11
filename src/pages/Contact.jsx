@@ -2,6 +2,7 @@ import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
 import { useActionData, Form, redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 
 const location = window.location;
 
@@ -18,7 +19,8 @@ const Contact = () => {
       setDisplaySuccess(true);
       setTimeout(() => {
         setDisplaySuccess(false);
-      }, 4000)
+        location.href = location.href.split('?')[0];
+      }, 3000)
     }
   }, [])
 
@@ -37,6 +39,10 @@ const Contact = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>Contact Us | Metakay Official</title>
+      </Helmet>
+      
       {/* Header Section */}
       <div 
         className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-xl tracking-wider md:text-3xl'>
@@ -189,6 +195,7 @@ const Contact = () => {
 export default Contact
 
 export const contactAction = async ({ request }) => {
+  const regexValue = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   const formData = await request.formData();
   const data = {
     name: formData.get('name'),
@@ -202,7 +209,7 @@ export const contactAction = async ({ request }) => {
     data.errors.name = 'Please provide your full name!';
   }
 
-  if(data.email.trim() == '' || !data.email.includes('@')){
+  if(data.email.trim() == '' || !data.email.match(regexValue)){
     data.errors.email = 'Please provide a valid email address!';
   }
 

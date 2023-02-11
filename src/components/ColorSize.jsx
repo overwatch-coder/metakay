@@ -28,7 +28,7 @@ const ColorSize = ({
                     ${extraClass} 
                     ${selectedItem === index ? 'bg-transparent border-green-400 border-2 text-black' 
                     : 'text-black hover:bg-transparent hover:text-white hover:border-white hover:border-2'} font-medium uppercase cursor-pointer 
-                    ${name.toLowerCase() === 'color' ? `bg-[${item}]` : ''}
+                    ${name.toLowerCase() === 'color' ? `bg-${item} border-white border-2` : ''}
                 `}
                 onClick={() => setSelectedItem(index)}
             >

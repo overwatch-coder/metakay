@@ -2,6 +2,7 @@ import { useParams, useNavigation, useLoaderData } from 'react-router-dom';
 import SingleCollection from '../components/SingleCollection';
 import { createClient } from "contentful";
 import Loader from '../components/Loader';
+import { Helmet } from 'react-helmet';
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -35,6 +36,10 @@ const Collection = () => {
 
   return (
     <div className='pb-2'>
+      <Helmet>
+        <title>{`${colname.toUpperCase()} - Collections | Metakay Official`}</title>
+      </Helmet>
+
       {/* Hero Section */}
       <section className='relative bg-gray'>
         <img src={'https:' + file.url} alt="collection hero image" className='w-full object-cover mix-blend-multiply md:h-[85vh]' />

@@ -57,7 +57,7 @@ const Footer = () => {
         <section className='flex flex-col items-center space-y-5 text-center'>
             <div>
                 <h3 className='font-medium text-lg'>Subscribe To Our Newsletter</h3>
-                <p className='text-xs'>No Spam And Only useful Information</p>
+                <p className='text-xs'>No Spam And Only Useful Information</p>
             </div>
 
             <form className='flex flex-col gap-y-5 w-full max-w-[300px]'>

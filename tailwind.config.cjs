@@ -22,7 +22,19 @@ module.exports = {
         slideY: 'slideY 1s ease-in-out'
       },
       colors: {
-        gray: '#3A3B3C'
+        gray: '#3A3B3C',
+        brown: '#964B00',
+        white: '#ffffff',
+        yellow: '#FFFF00',
+        blue: '#0000FF',
+        green: '#00FF00',
+        orange: '#FFA500',
+        black: '#000000',
+        pink: '#FFC0CB',
+        amber: '#FFBF00',
+        grey: '#808080',
+        gold: '#FFD700',
+        silver: '#C0C0C0'
       },
       fontFamily: {
         georgia: ['georgia', 'sans-serif'],

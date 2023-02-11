@@ -7,6 +7,7 @@ import Carousel from "react-elastic-carousel"
 import Loader from "../components/Loader";
 import { createClient } from "contentful";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
+import { Helmet } from "react-helmet";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -58,6 +59,10 @@ const ShopDetails = () => {
 
   return (
     <section>
+      <Helmet>
+        <title>{slug.charAt(0).toUpperCase().concat(slug.slice(1))} | Shop | Metakay Official</title>
+      </Helmet>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 pt-5 gap-y-10 lg:gap-x-20">
         {/* Product Images */}
         <section className="relative w-screen lg:w-[750px] xl:w-[950px] px-5 lg:px-16 flex flex-col gap-y-3 col-span-1 lg:col-span-2">

@@ -4,6 +4,7 @@ import { createClient } from "contentful";
 import Loader from "../components/Loader";
 import { useContext, useState } from "react";
 import { productContext } from "../context/ProductContext";
+import { Helmet } from "react-helmet";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -41,6 +42,11 @@ const ShopLayout = () => {
   return (
     <section>
         {/* Header Section */}
+        <Helmet>
+          <title>Shop | Metakay Official</title>
+        </Helmet>
+
+        {/* Header Hero Section */}
         <div 
             className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-xl tracking-wider md:text-3xl'>
             <h2>Shop - Metakay {selectedCat && `- (${selectedCat})`}</h2>
