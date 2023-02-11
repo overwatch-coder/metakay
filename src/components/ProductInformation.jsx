@@ -57,7 +57,7 @@ const ProductInformation = ({singleProducts}) => {
               items={size}
               selectedItem={selectedSize}
               setSelectedItem={setSelectedSize}
-              extraClass={'rounded px-3 py-2 bg-white'}
+              extraClass={'rounded px-3 py-2'}
             />
 
 
@@ -73,7 +73,7 @@ const ProductInformation = ({singleProducts}) => {
              {/* Price */}
             <div className="space-y-2">
               <h4 className="font-medium text-[18px] md:text-xl">Price</h4>
-              <p>${price}.00</p>
+              <p>${price}</p>
             </div>
 
             {/* Add to Cart */}
