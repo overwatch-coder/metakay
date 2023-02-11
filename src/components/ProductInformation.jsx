@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaCartPlus } from 'react-icons/fa';
 import { BsGlobe, BsTruck } from 'react-icons/bs';
 import ColorSize from "./ColorSize";
+import { productContext } from '../context/ProductContext';
 
 const ProductInformation = ({singleProducts}) => {
+  const { addToCart } = useContext(productContext);
 
     const { 
         category, 
@@ -17,6 +19,19 @@ const ProductInformation = ({singleProducts}) => {
 
     const [selectedSize, setSelectedSize] = useState(-1);
     const [selectedColor, setSelectedColor] = useState(-1);
+
+    const product = {
+      reference: reference,
+      name: name,
+      price: price,
+      size: size[selectedSize],
+      color: color[selectedColor]
+    }
+
+    // add to cart
+    const handleAddToCart = () => {
+      addToCart(product, reference);
+    }
 
     // function to reset selected features of a product
     const resetSelected = () => {
@@ -78,7 +93,10 @@ const ProductInformation = ({singleProducts}) => {
 
             {/* Add to Cart */}
             <button 
-              className="sm:w-[200px] lg:w-full uppercase bg-white text-black py-3 rounded hover:text-white hover:bg-transparent hover:border-2 hover:border-white flex items-center gap-x-3 justify-center text-center">
+              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${(!product.size | !product.color) ? 'bg-white/90 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
+              onClick={handleAddToCart}
+              disabled={!product.size | !product.color}
+            >
               <span>Add to Cart</span>
               <FaCartPlus size={20} />
             </button>

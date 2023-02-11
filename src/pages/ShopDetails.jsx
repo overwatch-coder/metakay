@@ -43,8 +43,6 @@ const ShopDetails = () => {
         } 
       } = singleProducts;
 
-    singleProducts.fields.reference = crypto.randomUUID().slice(0,16);
-
     const breakPoints = [
       { width: 1, itemsToShow: 1 },
       { width: 800, itemsToShow: 2 },

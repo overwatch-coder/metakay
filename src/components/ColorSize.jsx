@@ -12,6 +12,7 @@ const ColorSize = ({
     if(selectedItem > -1){
         selectedName = items[selectedItem];
     }
+    
 
   return (
     <div className="space-y-2">
@@ -22,18 +23,18 @@ const ColorSize = ({
 
         <p className="flex items-center gap-x-4">
             {items.map((item, index) => (
-            <span 
-                key={index} 
-                className={`
-                    ${extraClass} 
-                    ${selectedItem === index ? 'bg-transparent border-cyan-500 border-[3px] text-white' 
-                    : 'text-black bg-white hover:text-white hover:border-white hover:border-[3px]'} font-medium uppercase cursor-pointer 
-                    ${name.toLowerCase() === 'color' ? `bg-${item}` : 'hover:bg-transparent'}
-                `}
-                onClick={() => setSelectedItem(index)}
-            >
-                {name.toLowerCase() !== 'color' ? item : ''}
-            </span>
+                <span 
+                    key={index} 
+                    className={`
+                        ${extraClass} 
+                        ${selectedItem === index ? 'bg-transparent border-cyan-500 border-[3px] text-white' 
+                        : 'text-black hover:text-white hover:border-white hover:border-[3px]'} font-medium uppercase cursor-pointer 
+                        ${name.toLowerCase() === 'color' ? `bg-${item}` : 'hover:bg-transparent bg-white'}
+                    `}
+                    onClick={() => setSelectedItem(index)}
+                >
+                    {name.toLowerCase() !== 'color' ? item : ''}
+                </span>
             ))}
         </p>
     </div>

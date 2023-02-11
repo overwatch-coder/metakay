@@ -8,18 +8,22 @@ const ProductContextProvider = ({ children }) => {
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cart')) || []);
 
     // add products to cart
-    const addToCart = (product, id) => {
-      console.log(product, id);
+    const addToCart = (product, reference) => {
+      console.log(product, reference);
+      setCartProducts(prev => ([...prev, product]));
     }
 
+    // add items to local storage
+    localStorage.setItem('cart', JSON.stringify(cartProducts));
+
     // remove products from cart
-    const removeFromCart = (products, id) => {
-      console.log(products, id);
+    const removeFromCart = (reference) => {
+      console.log(reference, 'removed');
     }
 
     // clear carts
-    const clearCart = (products) => {
-      console.log(products);
+    const clearCart = () => {
+      console.log('all products cleared');
     }
 
     const values = {
