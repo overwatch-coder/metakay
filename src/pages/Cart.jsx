@@ -32,7 +32,6 @@ const Cart = () => {
       </Helmet>
 
        {/* Header Hero Section */}
-        
       <div 
         className='bg-gray w-screen py-3 mb-10 text-center font-georgia font-medium uppercase text-white text-lg tracking-wider md:text-3xl'>
           <h2>Your Cart</h2>
@@ -52,8 +51,7 @@ const Cart = () => {
             </Link>
           </div>
           :
-
-          <div className="shadow-lg shadow-gray backdrop-blur-2xl">
+          <div className="shadow-lg">
             <ProductCart 
               products={cartProducts} 
               removeFromCart={removeFromCart}

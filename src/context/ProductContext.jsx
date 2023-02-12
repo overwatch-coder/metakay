@@ -4,6 +4,7 @@ export const productContext = createContext("");
 
 const ProductContextProvider = ({ children }) => {
     const [cartProducts, setCartProducts] = useState(JSON.parse(localStorage.getItem('cart')) || []);
+    const [openCart, setOpenCart] = useState(false);
 
     // add products to cart
     const addToCart = (product) => {
@@ -115,7 +116,9 @@ const ProductContextProvider = ({ children }) => {
         addQuantity,
         removeQuantity,
         individualPrice,
-        totalPrice 
+        totalPrice,
+        openCart,
+        setOpenCart 
     }
 
   return (

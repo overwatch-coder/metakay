@@ -5,7 +5,12 @@ import ColorSize from "./ColorSize";
 import { productContext } from '../context/ProductContext';
 
 const ProductInformation = ({singleProducts, image}) => {
-  const { addToCart } = useContext(productContext);
+  const { addToCart, cartProducts } = useContext(productContext);
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [productQuantity, setProductQuantity] = useState({
+    quantity: 0,
+    size: ''
+  });
 
     const { 
         category, 
@@ -14,7 +19,8 @@ const ProductInformation = ({singleProducts, image}) => {
         excerpt, 
         reference, 
         size, 
-        color
+        color,
+        slug
       } = singleProducts.fields;
 
     const [selectedSize, setSelectedSize] = useState(-1);
@@ -24,12 +30,39 @@ const ProductInformation = ({singleProducts, image}) => {
       name: name,
       price: price,
       size: size[selectedSize],
-      image: image
+      image: image,
+      slug: slug
     }
+
+    // get original product quantity from cart
+    const selectedProductCart = cartProducts.filter(prod => prod.reference === reference);
 
     // function to reset selected features of a product
     const resetSelected = () => {
       setSelectedSize(-1);
+    }
+
+    // function to add item to cart when button is clicked
+    const handleAddToCart = () => {
+      addToCart(product);
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 2000);
+
+      // getting current added product's quantity
+      const currentProduct = selectedProductCart?.filter(prod => prod.size === size[selectedSize]);
+      if(currentProduct.length === 0){
+        setProductQuantity({
+          quantity: 1,
+          size: size[selectedSize]
+        })
+      }else{
+        setProductQuantity({
+          quantity: currentProduct[0].quantity,
+          size: size[selectedSize]
+        })
+      }
     }
 
   return (
@@ -58,6 +91,7 @@ const ProductInformation = ({singleProducts, image}) => {
                 <h4 className="font-medium text-[18px] md:text-xl">Reference</h4>
                 <p>{reference}</p>
             </div>
+            
 
             {/* Size */}
             <ColorSize 
@@ -66,8 +100,16 @@ const ProductInformation = ({singleProducts, image}) => {
               selectedItem={selectedSize}
               setSelectedItem={setSelectedSize}
               extraClass={'rounded px-3 py-2'}
+              quantity={productQuantity.quantity}
+              currentSize={productQuantity.size}
             />
 
+            {/*Added to cart success message*/}
+            <div className={`${showSuccessMessage ? 'block animate-slideY' : 'hidden'} bg-green/40 p-3 text-sm text-center`}>
+                <p>
+                  Item with size: {productQuantity.size} successfully added {productQuantity.quantity} time(s)
+                </p>
+            </div>
 
             {/* Color */}
             <ColorSize 
@@ -84,7 +126,7 @@ const ProductInformation = ({singleProducts, image}) => {
             {/* Add to Cart */}
             <button 
               className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${!product.size ? 'bg-white/90 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
-              onClick={() => addToCart(product)}
+              onClick={handleAddToCart}
               disabled={!product.size}
             >
               <span>Add to Cart</span>

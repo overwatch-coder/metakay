@@ -20,7 +20,7 @@ const ProductCart = ({
 		// window.open(url, "_blank");
     }
 
-    let deliveryFee = 10;
+    let deliveryFee = parseFloat(10.50);
 
   return (
     <section className="grid grid-cols-1 lg:grid-cols-3 py-10 px-5">
@@ -40,10 +40,10 @@ const ProductCart = ({
                             className="w-20 h-24 object-cover" 
                         />
 
-                        <h3 className='flex flex-col gap-y-2'>
+                        <Link to={`/shop/${prod.slug}`} className='flex flex-col gap-y-2'>
                             <span className='font-bold'>{prod.name}</span>
                             <span className='text-gray text-sm font-medium'>Size: {prod.size}</span>
-                        </h3>
+                        </Link>
 
                         <h4 className='flex items-center gap-x-3 pt-4 md:pt-0'>
                             <button onClick={() => removeQuantity(prod.reference, prod.size)}>
@@ -100,13 +100,13 @@ const ProductCart = ({
                 </h3>
 
                 <h3 className='flex justify-between items-center text-lg'>
-                    <span className='font-medium'>Delivery Fee</span>
-                    <span>$ {deliveryFee}.00</span>
+                    <span className='font-medium'>Delivery</span>
+                    <span>{deliveryFee !== 'Free' ? `$ ${deliveryFee}` : 'Free'}</span>
                 </h3>
 
                 <h4 className='flex justify-between items-center text-base md:text-lg py-10 border-t-2 border-white/30'>
                     <span className='font-bold uppercase'>Total</span>
-                    <span>${ totalPrice ? totalPrice + deliveryFee : 0 }</span>
+                    <span>$ { deliveryFee !== 'Free' ? `${deliveryFee + totalPrice }` : totalPrice }</span>
                 </h4>
             </div>
 
