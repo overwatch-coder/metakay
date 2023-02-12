@@ -4,7 +4,7 @@ import Footer from "./Footer";
 import Header from "./Header";
 import { createClient } from "contentful";
 import Loader from '../components/Loader';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -14,6 +14,15 @@ const client = createClient({
 })
 
 const Layout = () => {
+   // displaying loading screen while data is being fetched
+   const navigation = useNavigation();
+
+   if(navigation.state === 'loading'){
+     return (
+       <Loader />
+     )
+   }
+   
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -23,14 +32,6 @@ const Layout = () => {
   // get products data from loader function
   const { products, collections} = useLoaderData();
 
-  // displaying loading screen while data is being fetched
-  const navigation = useNavigation();
-
-  if(navigation.state === 'loading'){
-    return (
-      <Loader />
-    )
-  }
 
   return (
     <section className="flex flex-col min-h-screen scroll-smooth">

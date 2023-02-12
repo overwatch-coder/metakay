@@ -2,7 +2,7 @@ import { useParams, useNavigation, useLoaderData } from 'react-router-dom';
 import SingleCollection from '../components/SingleCollection';
 import { createClient } from "contentful";
 import Loader from '../components/Loader';
-import { Helmet } from 'react-helmet';
+import { Helmet } from "react-helmet-async";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 

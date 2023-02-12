@@ -4,7 +4,7 @@ import { BsGlobe, BsTruck } from 'react-icons/bs';
 import ColorSize from "./ColorSize";
 import { productContext } from '../context/ProductContext';
 
-const ProductInformation = ({singleProducts}) => {
+const ProductInformation = ({singleProducts, image}) => {
   const { addToCart } = useContext(productContext);
 
     const { 
@@ -18,25 +18,18 @@ const ProductInformation = ({singleProducts}) => {
       } = singleProducts.fields;
 
     const [selectedSize, setSelectedSize] = useState(-1);
-    const [selectedColor, setSelectedColor] = useState(-1);
 
     const product = {
       reference: reference,
       name: name,
       price: price,
       size: size[selectedSize],
-      color: color[selectedColor]
-    }
-
-    // add to cart
-    const handleAddToCart = () => {
-      addToCart(product, reference);
+      image: image
     }
 
     // function to reset selected features of a product
     const resetSelected = () => {
       setSelectedSize(-1);
-      setSelectedColor(-1);
     }
 
   return (
@@ -80,12 +73,9 @@ const ProductInformation = ({singleProducts}) => {
             <ColorSize 
               name={'Color'}
               items={color}
-              selectedItem={selectedColor}
-              setSelectedItem={setSelectedColor}
-              extraClass={`rounded-full p-5`}
             />
 
-             {/* Price */}
+            {/* Price */}
             <div className="space-y-2">
               <h4 className="font-medium text-[18px] md:text-xl">Price</h4>
               <p>${price}</p>
@@ -93,9 +83,9 @@ const ProductInformation = ({singleProducts}) => {
 
             {/* Add to Cart */}
             <button 
-              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${(!product.size | !product.color) ? 'bg-white/90 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
-              onClick={handleAddToCart}
-              disabled={!product.size | !product.color}
+              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${!product.size ? 'bg-white/90 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
+              onClick={() => addToCart(product)}
+              disabled={!product.size}
             >
               <span>Add to Cart</span>
               <FaCartPlus size={20} />
@@ -111,11 +101,14 @@ const ProductInformation = ({singleProducts}) => {
                     <BsTruck />
                     <span>14 Day Return Policy</span>
                 </div>
+                <div className="flex items-center gap-x-3">
+                    <span>NB: Preferred color will be asked later</span>
+                </div>
             </div>
 
           </div>
 
-            {(selectedSize > -1 || selectedColor > -1) && 
+            { selectedSize > -1 && 
             <button 
                 className="uppercase sm:w-[200px] lg:w-full mt-4 p-2 rounded bg-white text-black hover:opacity-90 hover:scale-105"
                 onClick={resetSelected}

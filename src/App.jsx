@@ -16,6 +16,7 @@ import ShopDetails, { shopProductsDetails } from "./pages/ShopDetails";
 import ShopLayout, { shopProductsLoader } from "./pages/ShopLayout";
 import NotFound from "./pages/NotFound";
 import ErrorElement from "./pages/ErrorElement";
+import { HelmetProvider } from "react-helmet-async";
 
 
 const App = () => {
@@ -77,7 +78,9 @@ const App = () => {
 
 
   return (
-    <RouterProvider router={router} />
+    <HelmetProvider>
+      <RouterProvider router={router} />
+    </HelmetProvider>
   )
 }
 

@@ -2,7 +2,7 @@ import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
 import { useActionData, Form, redirect } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet-async';
 
 const location = window.location;
 

@@ -8,6 +8,11 @@ import { homeCollection, shopCategory } from "../utils";
 const ShopFilter = ({categoryClicked}) => {
     const [showCategory, setShowCategory] = useState(false);
     const [showCollection, setShowCollection] = useState(false);
+ 
+    const handleCategoryClicked = (cat) => {
+        categoryClicked(cat);
+        setShowCategory(false);
+    }
 
   return (
     <section className='px-7 relative'>
@@ -41,7 +46,7 @@ const ShopFilter = ({categoryClicked}) => {
                     <article 
                         key={index} 
                         className='flex items-center space-x-2 cursor-pointer'
-                        onClick={() => categoryClicked(cat)}
+                        onClick={() => handleCategoryClicked(cat)}
                     >
                         <VscStarEmpty className='text-xl' />
                         <span className='text-base md:text-xl capitalize'>{cat}</span>
@@ -65,7 +70,7 @@ const ShopFilter = ({categoryClicked}) => {
                         <h5 
                             key={index} 
                             className='flex items-center space-x-3 cursor-pointer'
-                            onClick={() => categoryClicked(col)}
+                            onClick={() => handleCategoryClicked(col)}
                         >
                             <VscStarFull />
                             <span>{ col }</span>

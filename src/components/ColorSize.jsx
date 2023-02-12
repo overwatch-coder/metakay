@@ -15,28 +15,43 @@ const ColorSize = ({
     
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
         <h4 className="font-medium text-[18px] md:text-xl space-x-2">
-            <span> { name } </span>
-            <span>{selectedName}</span>
+            {name.toLowerCase() === 'color' ? 
+                <span> { name }s Available </span> : 
+                <span> { name } </span>
+            }
+            <span> {selectedName} </span>
         </h4>
 
-        <p className="flex items-center gap-x-4">
-            {items.map((item, index) => (
+        <h3 className="flex items-center gap-x-4 capitalize">
+        {(name.toLowerCase() === 'color') ?
+            items.map((item, index) => (
+                <span 
+                    key={index}
+                    className=''
+                >
+                    {item}
+                </span>
+            )) :
+            items.map((item, index) => (
                 <span 
                     key={index} 
                     className={`
                         ${extraClass} 
-                        ${selectedItem === index ? 'bg-transparent border-cyan-500 border-[3px] text-white' 
-                        : 'text-black hover:text-white hover:border-white hover:border-[3px]'} font-medium uppercase cursor-pointer 
-                        ${name.toLowerCase() === 'color' ? `bg-${item}` : 'hover:bg-transparent bg-white'}
-                    `}
+                        ${selectedItem === index ? 
+                            'bg-gray border-white border-2 text-white' 
+                            : 'text-black hover:bg-transparent hover:text-white hover:border-white hover:border-[3px] bg-white'
+                        } 
+                        font-medium uppercase cursor-pointer`
+                    }
                     onClick={() => setSelectedItem(index)}
                 >
                     {name.toLowerCase() !== 'color' ? item : ''}
                 </span>
-            ))}
-        </p>
+            ))
+        }
+        </h3>
     </div>
   )
 }

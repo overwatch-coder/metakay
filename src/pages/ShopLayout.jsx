@@ -2,9 +2,8 @@ import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import ShopFilter from "../components/ShopFilter";
 import { createClient } from "contentful";
 import Loader from "../components/Loader";
-import { useContext, useState } from "react";
-import { productContext } from "../context/ProductContext";
-import { Helmet } from "react-helmet";
+import { useState } from "react";
+import { Helmet } from "react-helmet-async";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -30,6 +29,7 @@ const ShopLayout = () => {
   // filtering and displaying products based on what a user clicks
   const categoryClicked = (item) => {
     let selectedCategory = item.toLowerCase();
+
     if(selectedCategory !== 'all'){
       setSelectedCat(selectedCategory);
       setSelectedProductsByCategory(shopProducts.filter(prod => prod.fields.category.includes(selectedCategory)));
@@ -67,6 +67,7 @@ const ShopLayout = () => {
 
 export default ShopLayout
 
+// getting products from contenful
 export const shopProductsLoader = async () => {
   const shopProductsEntries = await client.getEntries({
     content_type: 'product'

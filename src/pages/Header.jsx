@@ -2,13 +2,14 @@ import { Link, NavLink } from 'react-router-dom';
 import Logo from '../assets/logo-white.jpg';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { GrMenu, GrClose } from 'react-icons/gr';
-import {  useContext } from 'react';
+import {  useContext, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Social from '../components/Social';
 import { productContext } from '../context/ProductContext';
 
 const Header = () => {
-    const { navbarActive, setNavbarActive, cartProducts } = useContext(productContext);
+    const { cartProducts } = useContext(productContext);
+    const [navbarActive, setNavbarActive] = useState(false);
 
   return (
     <header className="bg-white w-screen fixed drop-shadow-md z-50 border-gray border-b-[1px] md:border-0">
@@ -22,13 +23,13 @@ const Header = () => {
             {/* Nav links desktop */}
             <nav className='hidden md:flex justify-center items-center space-x-6 uppercase font-medium pr-5'>
 
-                <Navbar />
+                <Navbar setNavbarActive={setNavbarActive} />
 
                 {/* Cart desktop*/}
                 <NavLink to='/cart' className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {cartProducts.length}
+                        {cartProducts ? cartProducts.length : 0}
                     </span>
                 </NavLink>
             </nav>
@@ -40,7 +41,7 @@ const Header = () => {
                 <NavLink to='/cart' className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {cartProducts.length}
+                        {cartProducts ? cartProducts.length : 0}
                     </span>
                 </NavLink>
 
@@ -66,7 +67,7 @@ const Header = () => {
             }>
             
             {/* Nav link component*/}
-            <Navbar />
+            <Navbar setNavbarActive={setNavbarActive} />
 
             {/* Social media*/}
             <div className='mx-auto'>

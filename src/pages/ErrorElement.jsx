@@ -1,6 +1,7 @@
 import { Link, useRouteError } from "react-router-dom"
 import Footer from "./Footer";
 import Header from "./Header";
+import { Helmet } from "react-helmet-async";
 
 const ErrorElement = () => {
     const error = useRouteError();
@@ -8,6 +9,10 @@ const ErrorElement = () => {
 
   return (
     <div>
+        <Helmet>
+            <title>Unexpected Error | Metakay Official</title>
+        </Helmet>
+
         <Header />
         <div className="py-60 text-center mx-auto flex flex-col gap-y-4 items-center">
             <h2 className="text-5xl">Oops!</h2>

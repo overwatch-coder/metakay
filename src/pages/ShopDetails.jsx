@@ -7,7 +7,7 @@ import Carousel from "react-elastic-carousel"
 import Loader from "../components/Loader";
 import { createClient } from "contentful";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { Helmet } from "react-helmet";
+import { Helmet } from "react-helmet-async";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -87,6 +87,7 @@ const ShopDetails = () => {
         {/* Product Information */}
         <ProductInformation 
           singleProducts={singleProducts}
+          image={url}
         />
       </div>
 
