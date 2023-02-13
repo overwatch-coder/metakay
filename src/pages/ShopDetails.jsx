@@ -53,7 +53,8 @@ const ShopDetails = () => {
       { width: 700, itemsToShow: 4 }
     ];
 
-    const similarProducts = products.filter(product => product.fields.slug !== slug);
+    // get similarProducts by category
+    const similarProducts = products.filter(product => (product.fields.category.includes(singleProducts.fields.category[0]) && product.fields.slug !== slug));
 
   return (
     <section>

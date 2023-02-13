@@ -12,14 +12,19 @@ module.exports = {
           "50%": { transform: 'translateX(80%)' },
           "100%": { transform: 'translateX(-80%)' }
         },
+        fadeX: {
+          from: { width: 0 },
+          to: { width: '100%' }
+        },
         slideY: {
           from: { transform: 'translateY(-100%)', opacity: 0 },
-          to: { transform: 'translateY(0)', opacity: 1 }
+          to: { transform: 'translateY(0)', opacity: 1 },
         }
       },
       animation: {
         slideX: 'slideX 5s ease-in-out infinite',
-        slideY: 'slideY 1s ease-in-out'
+        slideY: 'slideY 1s ease-in-out',
+        fadeX: 'fadeX 1s ease-in-out'
       },
       colors: {
         gray: '#3A3B3C',

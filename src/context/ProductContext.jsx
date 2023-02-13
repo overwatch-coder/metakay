@@ -9,29 +9,29 @@ const ProductContextProvider = ({ children }) => {
     // add products to cart
     const addToCart = (product) => {
       if(cartProducts.length > 0){
+
         // find current product with reference
         const currentProducts = cartProducts.filter(prod => prod.reference === product.reference);
         const otherProducts = cartProducts.filter(prod => prod.reference !== product.reference);
 
-        if(currentProducts.length > 0){
+        if(currentProducts.length > 0) {
           const currentProduct = currentProducts.filter(prod => prod.size === product.size);
           const otherCurrentProducts = currentProducts.filter(prod => prod.size !== product.size);
 
           if(currentProduct.length > 0){
             currentProduct[0].quantity += 1;
-            setCartProducts(([...currentProduct, ...otherCurrentProducts, ...otherProducts]));
+            setCartProducts(([...otherCurrentProducts, ...currentProduct, ...otherProducts]));
           }else{
-            setCartProducts(([{...product, quantity: 1}, ...otherCurrentProducts, ...otherProducts]));
+            setCartProducts(([...otherCurrentProducts, {...product, quantity: 1}, ...otherProducts]));
           }
         }else{
           product.quantity = 1;
-          setCartProducts(prev => [...prev, product]);
+          setCartProducts(prev => [product, ...prev]);
         }
       }else{
         product.quantity = 1;
-        setCartProducts(prev => [...prev, product]);
+        setCartProducts(prev => [product, ...prev]);
       }
-      
     }
 
     // add items to local storage
@@ -69,8 +69,8 @@ const ProductContextProvider = ({ children }) => {
 
       // update product quantity
       product[0].quantity += 1;
-      setCartProducts([...product, ...remainingProducts, ...productsRemaining]);
-      localStorage.setItem('cart', JSON.stringify([...product, ...remainingProducts, ...productsRemaining]));
+      setCartProducts([...remainingProducts, ...product, ...productsRemaining]);
+      localStorage.setItem('cart', JSON.stringify([...remainingProducts, ...product, ...productsRemaining]));
     }
 
     // remove one quantity from product
@@ -90,11 +90,11 @@ const ProductContextProvider = ({ children }) => {
       // update product quantity
       if(product[0].quantity === 1){
         removeFromCart(reference, size);
-        setCartProducts([...productsRemaining, ...remainingProducts]);
-        localStorage.setItem('cart', JSON.stringify([...productsRemaining, ...remainingProducts]));
+        setCartProducts([...remainingProducts, ...productsRemaining]);
+        localStorage.setItem('cart', JSON.stringify([...remainingProducts, ...productsRemaining]));
       }else{
         product[0].quantity -= 1;
-        setCartProducts([...product, ...remainingProducts, ...productsRemaining]);
+        setCartProducts([...remainingProducts, ...product, ...productsRemaining]);
         localStorage.setItem('cart', JSON.stringify([...product, ...remainingProducts, ...productsRemaining]));
       }
     }

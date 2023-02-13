@@ -48,7 +48,12 @@ const ProductInformation = ({singleProducts, image}) => {
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
-      }, 2000);
+        setProductQuantity({
+          quantity: 0,
+          size: ''
+        });
+        setSelectedSize(-1);
+      }, 4000);
 
       // getting current added product's quantity
       const currentProduct = selectedProductCart?.filter(prod => prod.size === size[selectedSize]);
@@ -125,7 +130,7 @@ const ProductInformation = ({singleProducts, image}) => {
 
             {/* Add to Cart */}
             <button 
-              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${!product.size ? 'bg-white/90 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
+              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${!product.size ? 'bg-slate-500 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
               onClick={handleAddToCart}
               disabled={!product.size}
             >

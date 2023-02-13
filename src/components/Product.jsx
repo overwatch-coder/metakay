@@ -1,11 +1,14 @@
+import { useContext } from 'react';
 import { FaCartPlus, FaEye } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
+import { productContext } from '../context/ProductContext';
 
 const Product = ({productImage, slug, productName, price, category}) => {
   const location = useLocation();
+  const { openCart, setOpenCart } = useContext(productContext);
 
   return (
-    <div className={`flex flex-col col-span-1`}>
+    <div className={`flex flex-col col-span-1 group`}>
         <Link to={`/shop/${slug}`}>
           <img 
             src={'https:' + productImage } 
@@ -14,13 +17,11 @@ const Product = ({productImage, slug, productName, price, category}) => {
           />
         </Link>
 
-        <div className='bg-gray py-4 text-white flex justify-around'>
-            <Link to={`/shop/${slug}`} className='hover:scale-110'>
-              <FaCartPlus className='cursor-pointer text-base lg:text-xl hover:scale-110' />
-            </Link>
+        <div className='bg-gray py-4 text-white flex flex-row-reverse justify-around'>
+            <p className='lg:text-base'>$ {price}</p>
 
             <Link to={`/shop/${slug}`} className='hover:scale-110'>
-                <FaEye className='text-base lg:text-xl' />
+                <FaCartPlus className='text-base lg:text-xl' />
             </Link>
         </div>
 
@@ -32,9 +33,9 @@ const Product = ({productImage, slug, productName, price, category}) => {
 
         <div className='py-2 flex justify-between items-center font-medium'>
             <p className='lg:text-base'>{productName}</p>
-
-            <p className='lg:text-base'>${price}</p>
         </div>
+
+        <div className='group-hover:border-b-4 group-hover:border-gray group-hover:animate-fadeX'></div>
     </div> 
   )
 }

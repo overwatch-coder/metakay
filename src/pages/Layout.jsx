@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { Outlet, useLoaderData, useLocation, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
 import { createClient } from "contentful";
 import Loader from '../components/Loader';
 import { Helmet } from "react-helmet-async";
+import { productContext } from "../context/ProductContext";
 
 const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
 
@@ -16,6 +17,7 @@ const client = createClient({
 const Layout = () => {
    // displaying loading screen while data is being fetched
    const navigation = useNavigation();
+   const { setOpenCart } = useContext(productContext);
 
    if(navigation.state === 'loading'){
      return (
@@ -26,7 +28,8 @@ const Layout = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+    window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
+    setOpenCart(false);
   }, [pathname])
 
   // get products data from loader function
