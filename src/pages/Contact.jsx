@@ -1,28 +1,14 @@
 import Social from '../components/Social';
 import contactUsImage from '../assets/contact-us.jpg';
 import { useActionData, Form, redirect } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import SuccessMessage from '../components/SuccessMessage';
 
 const location = window.location;
 
 const Contact = () => {
   let data = useActionData();
-
-  // get success message from url search params
-  let success = location.search?.split('=')[1] ? true : false;
-  const [displaySuccess, setDisplaySuccess] = useState(false);
-
-  // display or hide success message based url search params
-  useEffect(() => {
-    if(success){
-      setDisplaySuccess(true);
-      setTimeout(() => {
-        setDisplaySuccess(false);
-        location.href = location.href.split('?')[0];
-      }, 3000)
-    }
-  }, [])
 
   // assign values from the data to input elements
   const [inputs, setInputs] = useState({
@@ -34,7 +20,12 @@ const Contact = () => {
 
   // clear input fields as well as error elements
   const handleReset = () => {
-    setInputs({})
+    setInputs({
+      name: '',
+      email: '',
+      message: '',
+      errors: ''
+    })
   }
 
   return (
@@ -49,13 +40,10 @@ const Contact = () => {
         <h2>Contact - Metakay</h2>
       </div>
 
-      
-      {displaySuccess && 
-        <div className='mx-7 md:w-[500px] bg-green-500 rounded p-5 text-center text-white text-base md:text-xl shadow-md space-y-4 animate-slideY md:mx-auto'>
-          <h3>Thank you for contacting us!</h3>
-          <p>We will get back to you shortly </p>
-        </div>
-      }
+      <SuccessMessage 
+        message={'Thank you for contacting us!'}
+        urlPath={'/contact'}
+      />
 
       {/* General Information */}
       <div className='px-7 pt-5 flex flex-col gap-y-7 md:flex-row md:justify-evenly'>
@@ -120,7 +108,7 @@ const Contact = () => {
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Name</label>
               <input 
-                defaultValue={inputs && inputs.name}
+                defaultValue={inputs.name || ''}
                 type="text" 
                 name='name' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
@@ -132,7 +120,7 @@ const Contact = () => {
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Email</label>
               <input 
-                defaultValue={inputs && inputs.email}
+                defaultValue={inputs.email || ''}
                 type="email" 
                 name='email' 
                 className='w-full outline-none rounded border-[1px] border-gray p-3 focus:border-2 shadow-md' 
@@ -144,7 +132,7 @@ const Contact = () => {
             <div className='text-gray flex flex-col gap-y-3'>
               <label>Message</label>
               <textarea 
-                defaultValue={inputs && inputs.message}
+                defaultValue={inputs.message || ''}
                 name="message" 
                 cols="30" 
                 rows="10" 
@@ -179,7 +167,7 @@ const Contact = () => {
       {/* Map */}
       <div className='py-20 px-7'>
         <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15882.113977367731!2d-0.1670703325771899!3d5.63638118462521!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9b501278f4a5%3A0xca081548a0c20ffd!2sEast%20Legon%2C%20Accra%2C%20Ghana!5e0!3m2!1sen!2sma!4v1675384620455!5m2!1sen!2sma" 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127056.45417833977!2d-0.37297725677492505!3d5.638471860822191!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9948fac30719%3A0x28150c4463c0d554!2sAchimota%20Mall!5e0!3m2!1sen!2sma!4v1676766681073!5m2!1sen!2sma"
           width="600" 
           height="450" 
           loading="lazy" 
@@ -195,7 +183,10 @@ const Contact = () => {
 export default Contact
 
 export const contactAction = async ({ request }) => {
+  // regex pattern to validate email field
   const regexValue = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+  // getting data using the formdata 
   const formData = await request.formData();
   const data = {
     name: formData.get('name'),
@@ -222,7 +213,13 @@ export const contactAction = async ({ request }) => {
   }
 
   // send into database or api here
-  console.log(data);
+  const contact = {
+    name: data.name,
+    email: data.email,
+    message: data.message
+  }
+  console.log(contact);
+
   location.search = 'success=true';
 
   return redirect('/contact', 200);

@@ -1,11 +1,8 @@
-import { useContext } from 'react';
-import { FaCartPlus, FaEye } from 'react-icons/fa';
+import { FaCartPlus } from 'react-icons/fa';
 import { Link, useLocation } from 'react-router-dom';
-import { productContext } from '../context/ProductContext';
 
 const Product = ({productImage, slug, productName, price, category}) => {
   const location = useLocation();
-  const { openCart, setOpenCart } = useContext(productContext);
 
   return (
     <div className={`flex flex-col col-span-1 group`}>

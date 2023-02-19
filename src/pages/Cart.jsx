@@ -1,13 +1,15 @@
-import { useContext } from "react";
 import { Helmet } from "react-helmet-async"
 import { Link, useNavigation } from "react-router-dom";
-import { productContext } from "../context/ProductContext";
-import emptyCart from '../assets/cart_empty.png';
+import emptyCartImg from '../assets/cart_empty.png';
 import ProductCart from "../components/ProductCart";
+import { useCart } from "react-use-cart";
 
 const Cart = () => {
   // displaying loading screen while data is being fetched
   const navigation = useNavigation();
+
+  // getting different functions from use cart context
+  const { items, removeItem, isEmpty, updateItemQuantity, emptyCart, cartTotal } = useCart();
 
   if(navigation.state === 'loading'){
     return (
@@ -15,15 +17,6 @@ const Cart = () => {
     )
   }
 
-  const { 
-    cartProducts,
-    clearCart, 
-    removeFromCart,
-    addQuantity,
-    removeQuantity,
-    totalPrice,
-    individualPrice, 
-  } = useContext(productContext);
 
   return (
     <section className="pb-20">
@@ -38,9 +31,9 @@ const Cart = () => {
       </div>
 
       <div className="px-7">
-        {!(cartProducts.length > 0) ?
+        {isEmpty ?
           <div className="flex flex-col items-center gap-y-7 text-center mx-auto">
-            <img src={emptyCart} alt="Empty Cart" className="object-contain" />
+            <img src={emptyCartImg} alt="Empty Cart" className="object-contain" />
 
             <h3 className="text-xl md:text-3xl font-poppins capitalize">Your cart is currently <span className="text-red-600">empty</span></h3>
 
@@ -53,13 +46,12 @@ const Cart = () => {
           :
           <div className="shadow-lg">
             <ProductCart 
-              products={cartProducts} 
-              removeFromCart={removeFromCart}
-              clearCart={ clearCart }
-              addQuantity={addQuantity}
-              removeQuantity={removeQuantity}
-              totalPrice={totalPrice} 
-              individualPrice={individualPrice}
+              products={items} 
+              removeFromCart={removeItem}
+              clearCart={ emptyCart }
+              addQuantity={updateItemQuantity}
+              removeQuantity={updateItemQuantity}
+              totalPrice={cartTotal} 
             />
           </div>
           

@@ -17,6 +17,8 @@ import ShopLayout, { shopProductsLoader } from "./pages/ShopLayout";
 import NotFound from "./pages/NotFound";
 import ErrorElement from "./pages/ErrorElement";
 import { HelmetProvider } from "react-helmet-async";
+import { CartProvider } from "react-use-cart";
+import Success from "./pages/Success";
 
 
 const App = () => {
@@ -69,6 +71,11 @@ const App = () => {
         />
 
         <Route 
+          path="success" 
+          element={<Success />} 
+        />
+
+        <Route 
           path="*" 
           element={<NotFound />} 
         />
@@ -79,7 +86,9 @@ const App = () => {
 
   return (
     <HelmetProvider>
-      <RouterProvider router={router} />
+      <CartProvider>
+        <RouterProvider router={router} />
+      </CartProvider>
     </HelmetProvider>
   )
 }

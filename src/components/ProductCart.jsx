@@ -1,6 +1,9 @@
 import { FiPlus, FiMinus } from 'react-icons/fi';
 import { MdDeleteForever } from 'react-icons/md';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useContext, useState } from 'react';
+import { v4 as uuid } from 'uuid';
+import { productContext } from '../context/ProductContext';
 
 const ProductCart = ({
         products, 
@@ -9,20 +12,53 @@ const ProductCart = ({
         addQuantity,
         removeQuantity,
         totalPrice,
-        individualPrice,
-        isMiniCart
+        isMiniCart,
     }) => {
+    const navigate = useNavigate();
+    const { setProducts } = useContext(productContext);
 
+    // set default values for the input elements
+    const [phone, setPhone] = useState(''); 
+    const [name, setName] = useState(''); 
+    const [email, setEmail] = useState(''); 
+    const [error, setError] = useState(''); 
+
+    // function to handle product checkout
     const handleCheckout = () => {
-        console.log(products);
-        // const number = 212698551516;
-        // const message = {...products, number: +233241579315, total: totalPrice};
-		// const url = `https://api.whatsapp.com/send/?phone=${number}&text=${JSON.stringify(message)}&type=phone_number&app_absent=0`;
-		// window.open(url, "_blank");
+        if(phone === '' || name === '' || email === ''){
+            setError('Please fill the fields marked with *');
+        }else if(!phone.match('^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$')){
+            setError('Phone number is not in the right format');
+        }else{
+            setError('');
+            const data = { 
+                ...products, 
+                totalPrice, 
+                phone, 
+                name, 
+                email, 
+                orderNumber: `MTK-${uuid().slice(0,7)}-${new Date().toISOString().split(':')[0]}`
+            }
+            setProducts(data);
+            console.log(data);
+            setName('');
+            setEmail('');
+            setPhone('');
+            clearCart();
+            navigate('/success');
+        }
     }
 
-    // let deliveryFee = parseFloat(10.50);
-    let deliveryFee = 'Free';
+    // reset user data
+    const handleReset = () => {
+        setError('');
+        setName('');
+        setEmail('');
+        setPhone('');
+    }
+
+    let deliveryFee = parseFloat(10.00);
+    // let deliveryFee = 'Free';
 
   return (
     <section 
@@ -33,12 +69,16 @@ const ProductCart = ({
     >
         <div className={`col-span-1 ${isMiniCart ? '' : 'lg:col-span-2'} md:px-5 pb-5 flex flex-col gap-y-5`}>
             {!isMiniCart && <h2 className="flex justify-between items-center">
-                <span className="font-bold text-gray md:text-xl uppercase">Shopping Cart</span>
-                <span className="text-sm">{products.length} items</span>
+                <span className="font-bold text-gray md:text-xl uppercase">
+                    Shopping Cart
+                </span>
+                <span className="text-base font-medium">
+                    {products.length} items
+                </span>
             </h2>}
 
             <div className="flex flex-col gap-y-10 pt-5">
-                {products.map((prod, index) => (
+                {products.map((product, index) => (
                     <div 
                         key={index} 
                         className={`${isMiniCart ? 
@@ -47,32 +87,32 @@ const ProductCart = ({
                         }>
 
                         <img 
-                            src={`https:${prod.image}`} 
-                            alt={prod.name} 
+                            src={`https:${product.image}`} 
+                            alt={product.name} 
                             className="w-20 h-24 object-cover" 
                         />
 
-                        <Link to={`/shop/${prod.slug}`} className='flex flex-col gap-y-2'>
-                            <span className='font-bold'>{prod.name}</span>
-                            <span className='text-gray text-sm font-medium'>Size: {prod.size}</span>
+                        <Link to={`/shop/${product.slug}`} className='flex flex-col gap-y-2'>
+                            <span className='font-bold'>{product.name}</span>
+                            <span className='text-gray text-sm font-medium'>Size: {product.size}</span>
                         </Link>
 
                         <h4 className='flex items-center gap-x-3 pt-4 md:pt-0'>
-                            <button onClick={() => removeQuantity(prod.reference, prod.size)}>
+                            <button onClick={() => removeQuantity(product.id, product.quantity - 1 )}>
                                 <FiMinus size={20} />
                             </button>
-                            <span className='font-extrabold text-lg'>{prod.quantity}</span>
-                            <button onClick={() => addQuantity(prod.reference, prod.size)}>
+                            <span className='font-extrabold text-lg'>{product.quantity}</span>
+                            <button onClick={() => addQuantity(product.id, product.quantity + 1)}>
                                 <FiPlus size={20} />
                             </button>
                         </h4>
 
                         <h4 className='font-medium pt-4 md:pt-0'>
-                            $ {individualPrice(prod.quantity, prod.price)}
+                            $ {product.itemTotal}
                         </h4>
 
                         <button 
-                            onClick={() => removeFromCart(prod.reference, prod.size)}
+                            onClick={() => removeFromCart(product.id)}
                             className={`${isMiniCart ? 'w-full col-span-2 lg:col-span-1' : 'col-span-2 md:col-span-1'}`}
                         >
                             <MdDeleteForever 
@@ -122,6 +162,66 @@ const ProductCart = ({
                     <span className='font-bold uppercase'>Total</span>
                     <span className='font-medium text-xl'>$ { deliveryFee !== 'Free' ? `${deliveryFee + totalPrice }` : totalPrice }</span>
                 </h4>
+
+                {/* Form to fill to get client contact details */}
+                <form onClick={(e) => e.stopPropagation()} method='post' className={`flex flex-col gap-y-5 ${isMiniCart ? 'hidden' : 'block'} `}>
+                    <div className='flex flex-col gap-y-3'>
+                        <label htmlFor='name'>Name *</label>
+                        <input 
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            type="text" 
+                            name="name" 
+                            id="name" 
+                            placeholder='Enter your full name'
+                            className='w-full outline-none rounded border-[1px] border-white p-3 focus:border-2 shadow-md bg-transparent'
+                        />
+                    </div>
+
+                    <div className='flex flex-col gap-y-3'>
+                        <label htmlFor='email'>Email *</label>
+                        <input 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            type="email" 
+                            name="email" 
+                            id="email" 
+                            placeholder='Enter your email'
+                            className='w-full outline-none rounded border-[1px] border-white p-3 focus:border-2 shadow-md bg-transparent'
+                        />
+                    </div>
+
+                    <div className='flex flex-col gap-y-3'>
+                        <label htmlFor='phone'>Number (WhatsApp) *</label>
+                        <input 
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
+                            type="tel" 
+                            name="phone" 
+                            id="phone" 
+                            placeholder='+233241579315'
+                            className='w-full outline-none rounded border-[1px] border-white p-3 focus:border-2 shadow-md bg-transparent'
+                            pattern="[0-9]{4}[0-9]{2}[0-9]{3}[0-9]{4}"
+                        />
+                        <small className='text-xs mt-3'>
+                            NB: This is to enable us communicate with you via call or whatsapp
+                        </small>
+                    </div>
+
+                    {(name || email || phone) && 
+                        <button 
+                            type='reset' 
+                            className='mt-4 uppercase font-medium py-4 px-5 mx-auto text-center w-full bg-red-500 text-white hover:opacity-80 hover:bg-white hover:text-red-500 hover:border-2 hover:border-red-500 rounded transition duration-500'
+                            onClick={handleReset}
+                        >
+                            Reset
+                        </button>
+                    }
+
+                    <p className='text-red-500 py-3 text-center text-sm'>
+                        {error}
+                    </p>
+                </form>
             </div>
 
             {!isMiniCart && 

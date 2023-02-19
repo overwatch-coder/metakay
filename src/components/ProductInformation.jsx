@@ -1,74 +1,71 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { FaCartPlus } from 'react-icons/fa';
 import { BsGlobe, BsTruck } from 'react-icons/bs';
 import ColorSize from "./ColorSize";
-import { productContext } from '../context/ProductContext';
+import { useCart } from "react-use-cart";
 
 const ProductInformation = ({singleProducts, image}) => {
-  const { addToCart, cartProducts } = useContext(productContext);
+  const { addItem, items } = useCart();
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [productQuantity, setProductQuantity] = useState({
-    quantity: 0,
-    size: ''
-  });
+  const [productQuantity, setProductQuantity] = useState({quantity: 0, size: ''});
+  const [selectedSize, setSelectedSize] = useState(-1);
 
-    const { 
-        category, 
-        name, 
-        price, 
-        excerpt, 
-        reference, 
-        size, 
-        color,
-        slug
-      } = singleProducts.fields;
+  const { 
+      category, 
+      name, 
+      price, 
+      excerpt, 
+      reference, 
+      size, 
+      color,
+      slug
+    } = singleProducts.fields;
 
-    const [selectedSize, setSelectedSize] = useState(-1);
-
+    // setting product to be added to cart when user clicks on "add cart"
     const product = {
       reference: reference,
       name: name,
       price: price,
       size: size[selectedSize],
       image: image,
-      slug: slug
+      slug: slug,
+      id: `${reference}__${size[selectedSize]}`
     }
-
-    // get original product quantity from cart
-    const selectedProductCart = cartProducts.filter(prod => prod.reference === reference);
 
     // function to reset selected features of a product
     const resetSelected = () => {
       setSelectedSize(-1);
     }
 
-    // function to add item to cart when button is clicked
-    const handleAddToCart = () => {
-      addToCart(product);
-      setShowSuccessMessage(true);
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-        setProductQuantity({
-          quantity: 0,
-          size: ''
-        });
-        setSelectedSize(-1);
-      }, 4000);
+  // function to add item to cart when button is clicked
+  const handleAddToCart = () => {
+    addItem(product);
+    setShowSuccessMessage(true);
+    setTimeout(() => {
+      setShowSuccessMessage(false);
+      setProductQuantity({
+        quantity: 0,
+        size: ''
+      });
+      setSelectedSize(-1);
+    }, 4000);
 
-      // getting current added product's quantity
-      const currentProduct = selectedProductCart?.filter(prod => prod.size === size[selectedSize]);
-      if(currentProduct.length === 0){
-        setProductQuantity({
-          quantity: 1,
-          size: size[selectedSize]
-        })
-      }else{
-        setProductQuantity({
-          quantity: currentProduct[0].quantity,
-          size: size[selectedSize]
-        })
-      }
+     // get current selected product's quantity from cart
+     const selectedProductCart = items.filter(prod => prod.reference === reference);
+    const currentProduct = selectedProductCart?.filter(prod => prod.size === size[selectedSize]);
+
+    if(currentProduct.length === 0){
+      setProductQuantity({
+        quantity: 1,
+        size: size[selectedSize]
+      })
+    }else{
+      setProductQuantity({
+        quantity: currentProduct[0].quantity + 1,
+        size: size[selectedSize]
+      })
     }
+  }
 
   return (
     <section className="px-10 lg:px-5 pt-10 pb-16">
@@ -130,9 +127,9 @@ const ProductInformation = ({singleProducts, image}) => {
 
             {/* Add to Cart */}
             <button 
-              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${!product.size ? 'bg-slate-500 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
+              className={`sm:w-[200px] lg:w-full uppercase text-black py-3 rounded  flex items-center gap-x-3 justify-center text-center ${(!product.size || showSuccessMessage) ? 'bg-slate-500 cursor-not-allowed' : 'hover:text-white hover:bg-transparent hover:border-2 hover:border-white bg-white'}`}
               onClick={handleAddToCart}
-              disabled={!product.size}
+              disabled={!product.size || showSuccessMessage}
             >
               <span>Add to Cart</span>
               <FaCartPlus size={20} />

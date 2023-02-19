@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Logo from '../assets/logo-white.jpg';
 import { MdOutlineShoppingBag } from 'react-icons/md';
 import { GrMenu, GrClose } from 'react-icons/gr';
@@ -8,20 +8,20 @@ import Social from '../components/Social';
 import { productContext } from '../context/ProductContext';
 import { RxCross2 } from 'react-icons/rx';
 import ProductCart from '../components/ProductCart';
-import emptyCart from '../assets/cart_empty.png';
+import emptyCartImg from '../assets/cart_empty.png';
+import { useCart } from 'react-use-cart';
 
 const Header = () => {
+    const { openCart, setOpenCart } = useContext(productContext);
     const { 
-        cartProducts,
-        clearCart, 
-        removeFromCart,
-        addQuantity,
-        removeQuantity,
-        totalPrice,
-        individualPrice, 
-        openCart,
-        setOpenCart
-    } = useContext(productContext);
+            totalUniqueItems, 
+            items, 
+            isEmpty, 
+            removeItem, 
+            updateItemQuantity, 
+            cartTotal, 
+            emptyCart 
+        } = useCart();
 
     const [navbarActive, setNavbarActive] = useState(false);
 
@@ -42,7 +42,7 @@ const Header = () => {
                 <button onClick={() => setOpenCart(prev => !prev)} className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {cartProducts ? cartProducts.length : 0 }
+                        {items ? totalUniqueItems : 0 }
                     </span>
                 </button>
             </nav>
@@ -54,7 +54,7 @@ const Header = () => {
                 <button onClick={() => setOpenCart(prev => !prev)} className='relative hover:text-gray'>
                     <MdOutlineShoppingBag className='text-3xl' />
                     <span className='absolute top-3 left-4 rounded-full bg-black text-white text-center px-1 mx-auto'>
-                        {cartProducts ? cartProducts.length : 0}
+                        {items ? items.length : 0}
                     </span>
                 </button>
 
@@ -102,7 +102,7 @@ const Header = () => {
                             My Cart
                         </span>
                         <span className='font-medium text-gray text-lg md:text-xl'>
-                            <b className='text-xl md:text-3xl'>{cartProducts ? cartProducts.length : 0}</b> Items
+                            <b className='text-xl md:text-3xl'>{items ? totalUniqueItems : 0 }</b> Items
                         </span>
                     </h3>
 
@@ -112,9 +112,9 @@ const Header = () => {
                 </div>
 
                 <>
-                    {cartProducts.length === 0 ?
+                    {isEmpty ?
                     <div className="flex flex-col items-center gap-y-7 text-center mx-auto">
-                        <img src={emptyCart} alt="Empty Cart" className="object-contain" />
+                        <img src={emptyCartImg} alt="Empty Cart" className="object-contain" />
 
                         <h3 className="text-xl md:text-3xl font-poppins capitalize">
                             Your cart is currently <span className="text-red-600">empty</span>
@@ -130,13 +130,12 @@ const Header = () => {
                     :
                     <div className="shadow-lg">
                         <ProductCart 
-                            products={cartProducts} 
-                            removeFromCart={removeFromCart}
-                            clearCart={ clearCart }
-                            addQuantity={addQuantity}
-                            removeQuantity={removeQuantity}
-                            totalPrice={totalPrice} 
-                            individualPrice={individualPrice}
+                            products={items} 
+                            removeFromCart={removeItem}
+                            clearCart={ emptyCart }
+                            addQuantity={updateItemQuantity}
+                            removeQuantity={updateItemQuantity}
+                            totalPrice={cartTotal} 
                             isMiniCart={true}
                         />
                     </div>
