@@ -63,8 +63,8 @@ const ProductCart = ({
   return (
     <section 
         className={isMiniCart ? 
-            'grid grid-cols-1 py-5 px-5' : 
-            'grid grid-cols-1 lg:grid-cols-3 py-10 px-5'
+            'grid grid-cols-1 py-5 px-7' : 
+            'grid grid-cols-1 lg:grid-cols-3 py-10 md:px-5'
         }
     >
         <div className={`col-span-1 ${isMiniCart ? '' : 'lg:col-span-2'} md:px-5 pb-5 flex flex-col gap-y-5`}>
@@ -141,7 +141,7 @@ const ProductCart = ({
             </div>
         </div>
 
-        
+        {/* Order Summary and Checkout goes here */}        
         <div className="col-span-1 bg-gray text-white px-5 flex flex-col gap-y-5">
             <h2 className='text-lg md:text-xl lg:text-2xl uppercase py-5 border-b-2 border-white/30 pb-5'>
                 Order Summary
@@ -203,7 +203,7 @@ const ProductCart = ({
                             className='w-full outline-none rounded border-[1px] border-white p-3 focus:border-2 shadow-md bg-transparent'
                             pattern="[0-9]{4}[0-9]{2}[0-9]{3}[0-9]{4}"
                         />
-                        <small className='text-xs mt-3'>
+                        <small className='text-sm mt-3'>
                             NB: This is to enable us communicate with you via call or whatsapp
                         </small>
                     </div>

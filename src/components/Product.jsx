@@ -10,7 +10,7 @@ const Product = ({productImage, slug, productName, price, category}) => {
           <img 
             src={'https:' + productImage } 
             alt={productName} 
-            className={`${location.pathname === '/shop' ? 'w-full' : 'w-[350px]'} md:w-[300px] object-cover h-[60vh] md:h-[50vh]`} 
+            className={`${location.pathname === '/shop' ? 'w-full' : 'w-[350px]'} md:w-[300px] object-cover h-[60vh] md:h-[50vh] aspect-[3/2] block max-w-full`} 
           />
         </Link>
 

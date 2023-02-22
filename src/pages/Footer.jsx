@@ -14,7 +14,11 @@ const Footer = () => {
 
             {/* Footer logo */}
             <Link to='/'>
-                <img src={footerLogo} alt="footer logo" className='w-32 h-36 md:w-40 md:h-44' />
+                <img 
+                    src={footerLogo} 
+                    alt="footer logo" 
+                    className='w-32 h-36 md:w-40 md:h-44 block mix-blend-color-dodge aspect-square' 
+                />
             </Link>
 
             {/* Go to page info */}

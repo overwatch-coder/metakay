@@ -68,7 +68,7 @@ const ProductInformation = ({singleProducts, image}) => {
   }
 
   return (
-    <section className="px-10 lg:px-5 pt-10 pb-16">
+    <section className="md:px-5 pt-10 pb-16">
         <div className="text-white col-span-1 bg-gray py-10 flex flex-col gap-y-5 px-5">
           <h2 className="font-bold font-georgia text-2xl md:text-3xl">{ name }</h2>
 

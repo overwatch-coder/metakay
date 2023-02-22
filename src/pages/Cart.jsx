@@ -44,7 +44,7 @@ const Cart = () => {
             </Link>
           </div>
           :
-          <div className="shadow-lg">
+          <div className="md:shadow-lg">
             <ProductCart 
               products={items} 
               removeFromCart={removeItem}

@@ -20,13 +20,13 @@ const ProductCarousel = ({breakPoints, images, name, extraClass}) => {
                   src={'https:' + url} 
                   alt={name} 
                   key={index} 
-                  className={`w-full object-cover pt-5 ${extraClass}`} 
+                  className={`w-full object-cover pt-5 ${extraClass} aspect-[3/2]`} 
                 />
               )) : 
               <img 
                 src={'https:' + images.fields.file.url} 
                 alt={name}
-                className={`w-full object-cover pt-5 ${extraClass}`}  
+                className={`w-full object-cover pt-5 ${extraClass} aspect-[3/2]`}  
               />
             }
         </Carousel>

@@ -5,7 +5,7 @@ const ProductDescription = ({title, description}) => {
   const sanitizedDescription = DOMPurify.sanitize(description);
 
   return (
-    <section className="bg-gray mx-5 lg:mx-16 px-5 md:px-6 mb-10">
+    <section className="bg-gray lg:mx-16 px-5 md:px-6 mb-10">
         <h3 
             className={`flex justify-between items-center text-white text-xl font-medium py-5 border-b-2`}
         >

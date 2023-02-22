@@ -64,7 +64,7 @@ const ShopDetails = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 pt-5 gap-y-10 lg:gap-x-20">
         {/* Product Images */}
-        <section className="relative w-screen lg:w-[750px] xl:w-[950px] px-5 lg:px-16 flex flex-col gap-y-3 col-span-1 lg:col-span-2">
+        <section className="relative w-screen lg:w-[750px] xl:w-[950px] md:px-5 lg:px-16 flex flex-col gap-y-3 col-span-1 lg:col-span-2">
 
           <div className="px-5">
             <Link 
@@ -75,7 +75,7 @@ const ShopDetails = () => {
             </Link>
           </div>
 
-          <img src={`https:${url}`} alt={name} className='w-full object-cover px-5' />
+          <img src={`https:${url}`} alt={name} className='w-full object-cover px-5 md:aspect-square' />
 
           <ProductCarousel 
             breakPoints={breakPoints} 
@@ -93,7 +93,7 @@ const ShopDetails = () => {
       </div>
 
       {/* Product Description */}
-      <div className="flex flex-col gap-y-3 lg:flex-row lg:justify-center items-center lg:items-start py-10 px-5">
+      <div className="flex flex-col gap-y-3 lg:flex-row lg:justify-center items-center lg:items-start py-10 md:px-5">
         <ProductDescription 
           title={'Description'}
           description={documentToReactComponents(description)}

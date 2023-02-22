@@ -21,7 +21,7 @@ const Navbar = ({setNavbarActive}) => {
 
             {/* Dropdown */}
             <div 
-                className={dropDownActive ? 'md:absolute top-12 bg-white p-4 w-full md:w-40 mx-auto flex-col space-y-3 items-center uppercase': 'hidden'}
+                className={dropDownActive ? 'md:absolute top-12 bg-white p-4 w-full md:w-40 mx-auto flex-col space-y-5 items-center uppercase': 'hidden'}
             >
 
             {homeCollection.map((col, index) => (
@@ -51,7 +51,9 @@ const Navbar = ({setNavbarActive}) => {
         </li>
 
         <li onClick={() => setNavbarActive(false)}>
-            <NavLink to='/contact' className='hover:text-gray hover:border-b-2 hover:border-gray'>Contact</NavLink>
+            <NavLink to='/contact' className='hover:text-gray hover:border-b-2 hover:border-gray'>
+                Contact
+            </NavLink>
         </li>
     </>
   )
