@@ -1,15 +1,14 @@
 import { Link, useOutletContext } from 'react-router-dom';
 import Carousel from 'react-elastic-carousel'
 import Product from './Product';
-import { useContext } from 'react';
-import { productContext } from '../context/ProductContext';
 
 const HomePageShop = () => {
 
     // setting various breakpoints for carousel
     const breakPoints = [
         { width: 1, itemsToShow: 1 },
-        { width: 700, itemsToShow: 4 },
+        { width: 800, itemsToShow: 4 },
+        { width: 1024, itemsToShow: 6 },
     ]
 
     // const { allProducts } = useContext(productContext);
@@ -34,7 +33,7 @@ const HomePageShop = () => {
             >
 
             {/* Mapping through all the available products */}
-                {allProducts?.slice(0,10).map(({fields}, index) => (
+                {allProducts?.slice(0, Math.floor(allProducts.length - 5)).map(({fields}, index) => (
                     <Product 
                         productImage = {fields.photo?.fields?.file.url}
                         slug={fields.slug} 

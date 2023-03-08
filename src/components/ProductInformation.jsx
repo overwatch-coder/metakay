@@ -48,7 +48,7 @@ const ProductInformation = ({singleProducts, image}) => {
         size: ''
       });
       setSelectedSize(-1);
-    }, 4000);
+    }, 2000);
 
      // get current selected product's quantity from cart
      const selectedProductCart = items.filter(prod => prod.reference === reference);

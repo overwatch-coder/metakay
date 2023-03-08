@@ -34,7 +34,7 @@ const ShopFilter = ({categoryClicked}) => {
         </div>
 
         {/* Dropdown for category filter */}
-        <div className={`${showCategory ? 'flex' : 'hidden'} md:block z-30 flex-col gap-y-5 bg-gray w-full md:w-[180px] xl:w-[200px] py-3 px-4 xl:px-6 my-4 rounded shadow-md text-white ${showCollection ? 'h-[100vh]': 'h-[90vh]'} md:h-[140vh]`}>
+        <div className={`${showCategory ? 'flex' : 'hidden'} md:block z-30 flex-col gap-y-5 bg-gray w-full md:w-[180px] xl:w-[250px] py-3 px-4 xl:px-6 my-4 rounded shadow-md text-white ${showCollection ? 'h-[100vh]': 'h-[90vh]'} md:h-[140vh]`}>
 
             <h3 className='uppercase font-medium text-white py-5'>
                 <span className='border-b-2 tracking-widest'>Category</span>

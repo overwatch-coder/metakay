@@ -160,7 +160,7 @@ const ProductCart = ({
 
                 <h4 className='flex justify-between items-center text-base md:text-lg py-10 border-t-2 border-white/30'>
                     <span className='font-bold uppercase'>Total</span>
-                    <span className='font-medium text-xl'>$ { deliveryFee !== 'Free' ? `${deliveryFee + totalPrice }` : totalPrice }</span>
+                    <span className='font-medium text-xl'>$ { !isMiniCart && deliveryFee !== 'Free' ? `${deliveryFee + totalPrice }` : totalPrice }</span>
                 </h4>
 
                 {/* Form to fill to get client contact details */}

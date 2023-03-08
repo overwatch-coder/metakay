@@ -52,12 +52,12 @@ const ShopLayout = () => {
             <h2>Shop - Metakay {selectedCat && `- (${selectedCat})`}</h2>
         </div>
 
-        <div className="flex flex-col gap-y-5 md:flex-row md:gap-y-0 mb-10">
+        <div className="grid grid-cols-1 gap-y-5 md:gap-y-0 mb-10 md:grid-cols-4">
             {/* Category Section */}
             <ShopFilter categoryClicked={categoryClicked} />
 
             {/* Outlet for dynamic shopping products */}
-            <div className="px-5">
+            <div className="px-5 md:col-span-3">
                 <Outlet context={{ shopProducts: selectedProductsByCategory }} />
             </div>
         </div>

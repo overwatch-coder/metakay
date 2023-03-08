@@ -18,7 +18,7 @@ const Shop = () => {
   // functionality for prev, next and paginated product items
   const total = shopProducts.length;
   const [currentIndex, setCurrentIndex] = useState(1);
-  const productPerPage = 12;
+  const productPerPage = 15;
   const lastPageIndex = currentIndex * productPerPage;
   const firstPageIndex = lastPageIndex - productPerPage;
 
@@ -41,7 +41,7 @@ const Shop = () => {
 
   return (
     <div>
-      <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10'>
+      <section className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-10'>
         {productsToDisplay.map(({fields: {photo, name, slug, price, category}}, index) => (
           <Product 
             productImage={photo.fields.file.url}

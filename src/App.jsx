@@ -5,6 +5,9 @@ import {
     RouterProvider 
   } from "react-router-dom";
 
+  import { ToastContainer } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
+
   // Import pages
 import RootLayout, { productsLoader } from "./pages/Layout";
 import Home from "./pages/Home";
@@ -88,6 +91,7 @@ const App = () => {
     <HelmetProvider>
       <CartProvider>
         <RouterProvider router={router} />
+        <ToastContainer  />
       </CartProvider>
     </HelmetProvider>
   )

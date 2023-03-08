@@ -50,7 +50,8 @@ const ShopDetails = () => {
 
     const similarProductsBreakPoints = [
       { width: 1, itemsToShow: 1 },
-      { width: 700, itemsToShow: 4 }
+      { width: 700, itemsToShow: 4 },
+      { width: 1024, itemsToShow: 6 }
     ];
 
     // get similarProducts by category
@@ -123,7 +124,7 @@ const ShopDetails = () => {
             >
 
             {/* Mapping through all the available products */}
-              {similarProducts.slice(0,10).map((product, index) => (
+              {similarProducts.slice(0, Math.floor(similarProducts.length)).map((product, index) => (
                 <Product 
                   productImage = {product.fields.photo.fields.file.url}
                   slug={product.fields.slug} 
