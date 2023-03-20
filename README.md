@@ -1,2 +1,2 @@
 # metakay
-a website for fashion designer Metakay
+This is a website for a fashion brand Metakay 
