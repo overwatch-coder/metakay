@@ -16,7 +16,7 @@ const ErrorElement = () => {
         <Header />
         <div className="py-60 text-center mx-auto flex flex-col gap-y-4 items-center">
             <h2 className="text-5xl">Oops!</h2>
-            <p className="text-xl">Sorry, an unexpected error has occurred.</p>
+            <p className="text-xl">Sorry, something went wrong!</p>
             <p className="text-xl">Please try again later</p>
             {MODE === 'development' && <p><i>{error && error.message}</i></p>}
             <Link 

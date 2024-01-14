@@ -1,16 +1,10 @@
 import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import ShopFilter from "../components/ShopFilter";
-import { createClient } from "contentful";
 import Loader from "../components/Loader";
 import { useState } from "react";
 import { Helmet } from "react-helmet-async";
+import { contentfulClient } from "../lib/contentful";
 
-const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
-
-const client = createClient({
-  space: VITE_SPACE_ID,
-  accessToken: VITE_ACCESS_TOKEN
-})
 
 const ShopLayout = () => {
   const shopProducts = useLoaderData();
@@ -69,7 +63,7 @@ export default ShopLayout
 
 // getting products from contenful
 export const shopProductsLoader = async () => {
-  const shopProductsEntries = await client.getEntries({
+  const shopProductsEntries = await contentfulClient.getEntries({
     content_type: 'product'
   })
 

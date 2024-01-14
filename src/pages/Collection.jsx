@@ -1,15 +1,9 @@
 import { useParams, useNavigation, useLoaderData } from 'react-router-dom';
 import SingleCollection from '../components/SingleCollection';
-import { createClient } from "contentful";
 import Loader from '../components/Loader';
 import { Helmet } from "react-helmet-async";
+import { contentfulClient } from '../lib/contentful';
 
-const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
-
-const client = createClient({
-  space: VITE_SPACE_ID,
-  accessToken: VITE_ACCESS_TOKEN
-})
 
 const Collection = () => {
   // getting collection name from url
@@ -86,7 +80,7 @@ export default Collection
 
 export const singleCollectionLoader = async ({params}) => {
   const {colname} = params;
-  const collectionEntry = await client.getEntries({
+  const collectionEntry = await contentfulClient.getEntries({
     content_type: 'collection',
     'fields.name': colname
   })

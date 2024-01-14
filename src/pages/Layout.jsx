@@ -2,17 +2,10 @@ import { useContext, useEffect } from "react";
 import { Outlet, useLoaderData, useLocation, useNavigation } from "react-router-dom";
 import Footer from "./Footer";
 import Header from "./Header";
-import { createClient } from "contentful";
 import Loader from '../components/Loader';
 import { Helmet } from "react-helmet-async";
 import { productContext } from "../context/ProductContext";
-
-const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
-
-const client = createClient({
-  space: VITE_SPACE_ID,
-  accessToken: VITE_ACCESS_TOKEN
-})
+import { contentfulClient } from "../lib/contentful";
 
 const Layout = () => {
    // displaying loading screen while data is being fetched
@@ -65,11 +58,11 @@ const Layout = () => {
 export default Layout
 
 export const productsLoader = async () => {
-  const productEntries = await client.getEntries({
+  const productEntries = await contentfulClient.getEntries({
     content_type: 'product'
   });
 
-  const collectionEntries = await client.getEntries({
+  const collectionEntries = await contentfulClient.getEntries({
     content_type: 'collection'
   });
 

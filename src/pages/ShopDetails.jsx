@@ -5,16 +5,9 @@ import ProductDescription from "../components/ProductDescription";
 import Product from "../components/Product";
 import Carousel from "react-elastic-carousel"
 import Loader from "../components/Loader";
-import { createClient } from "contentful";
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Helmet } from "react-helmet-async";
-
-const { VITE_SPACE_ID, VITE_ACCESS_TOKEN } = import.meta.env;
-
-const client = createClient({
-  space: VITE_SPACE_ID,
-  accessToken: VITE_ACCESS_TOKEN
-})
+import { contentfulClient } from "../lib/contentful";
 
 const ShopDetails = () => {
 
@@ -143,7 +136,7 @@ const ShopDetails = () => {
 export default ShopDetails
 
 export const shopProductsDetails = async () => {
-  const shopProductsDetailsEntry = await client.getEntries({
+  const shopProductsDetailsEntry = await contentfulClient.getEntries({
     content_type: 'product'
   })
 
